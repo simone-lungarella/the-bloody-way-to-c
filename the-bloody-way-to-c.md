@@ -23,10 +23,6 @@ This book is a humble attempt to capture every piece of information given by Sal
 
 Each chapter is written following each lesson and, if needed, integrated with personal consideration. Each snippet is written and tested by the author and may vary from what is stated in the lessons.
 
-# Acknowledgments {-}
-
-
-
 # Introduction {-}
 
 ## The C language, as an idea of computation {-}
@@ -39,6 +35,4 @@ C was invented in [Bell Labs](https://it.wikipedia.org/wiki/Bell_Laboratories) w
 - floating point numbers: float;
 
 In that sense, `C` language can be visualized as `B` with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offset of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, achieve imagine in simple terms complex topics and algorithms.
-
-# Chapter
 

@@ -1,9 +1,9 @@
 ---
 title: "The Bloody Way to C"
-subtitle: ""
+subtitle: "A Brutalist Approach to C Language—No Boilerplate"
 author: "Simone Lungarella (simonelungarella@gmail.com)"
 date: "2025-05-11"
-lang: "it"
+lang: "en"
 geometry: margin=1in
 fontfamily: lmodern
 toc: true
@@ -19,7 +19,7 @@ header-includes:
 
 # Preface {-}
 
-This book is a humble attempt to capture every piece of information given by Salvatore Sanfilippo—aka [antirez](https://github.com/antirez)—in his C course presented in Italian on YouTube.
+This book is a humble attempt to capture every piece of information given by Salvatore Sanfilippo—aka [antirez](https://github.com/antirez)—in his C course presented on YouTube.
 
 Each chapter is written following each lesson and, if needed, integrated with personal consideration. Each snippet is written and tested by me and may vary from what is stated in the lessons.
 
@@ -58,7 +58,7 @@ This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
-Let's consider the following simple `C` program contained in a file named—for instance—: `hello_world.c` (how original):
+Let's consider the following simple `C` program contained in a file named—for instance—`hello_world.c` (how original):
 
 ```c
 #include <stdio.h>
@@ -71,7 +71,7 @@ int main(void) {
 
 You can use: `cc hello_world.c` to compile it to an executable program.
 
-The compiler generates—by default—an executable binary file: `a.out`. This file is executable and runs your program. You can use: `file a.out` to check information about the generated file.
+The compiler generates an executable binary file named: `a.out`. This file is executable and runs your program. You can use: `file a.out` to check information about the generated file.
 
 ```bash
 > file a.out
@@ -128,16 +128,16 @@ main:
 	.section	.note.GNU-stack,"",@progbits
 ```
 
-With a given compiler, you can tweak many compilation aspects. For instance: `cc -O2 hello_world.c` tells the compiler to try to optimize the generated executable. A more optimized version of the executable is also slower to be generated and, if that does not make much sense for small programs, it can output a much better version of the program when a high enough level of complexity has been reached.
+With a given compiler, you can tweak many compilation aspects. For instance, `cc -O2 hello_world.c` tells the compiler to optimize the generated executable. A more optimized version of the executable is also slower to be generated and, if that does not make much sense for small programs, it can output a much better version of the program when a high enough level of complexity has been reached.
 
-With [GCC](https://en.wikipedia.org/wiki/GNU_Compiler_Collection) compiler, you can see that our simple program make use of: `puts` [syscall](https://en.wikipedia.org/wiki/System_call), however, this depends on the compiler itself and often with different compilers, the line: `printf("Hello World\n");` is compiled using `printf` syscall instead.
+With [GCC](https://en.wikipedia.org/wiki/GNU_Compiler_Collection) compiler, you can see that our simple program make use of `puts` [syscall](https://en.wikipedia.org/wiki/System_call), however, this depends on the compiler itself and, often, with different compilers, the line: `printf("Hello World\n");` is compiled using `printf` syscall instead.
 
 Using `-O2` flag can make the compiler use `puts` as this syscall is faster than `printf`. This is a simple, yet meaningful, example but in such a small program it does make no difference in terms of execution speed. The compiler is very good at improving written programs if given enough time. While developing, though, a low compilation time is often preferred.
 
-> You can check the standard C library from the terminal using `man` or `--help` flags. For example, you can use `man 3 puts` or `man 3 printf` to check documentation on both syscalls (3 make sure to output the C library description).
+> You can check the standard C library from the terminal using `man` or `--help` flags. For example, you can use `man 3 puts` or `man 3 printf` to check documentation of both syscalls (3 makes sure to output the C library description).
 
 ## Include other source code
-In the very first line of our simple program, you can see a [preprocessor](https://en.wikipedia.org/wiki/Preprocessor) [directive](https://en.wikipedia.org/wiki/Directive_(programming)). This line simply tells to compiler that a file need to be included in the program. The compiler, before the compilation, take the content of the file and _paste_ it at the location. In this case: `<stdio.h>` declares the prototype of `printf` function so to instruct the compiler how to execute that specific call. To prove this point, you can remove the first line and replace it with: `int printf(const char *restrict format, ...);` which is the prototype of the function we want to call.
+In the very first line of our simple program, you can see a [preprocessor](https://en.wikipedia.org/wiki/Preprocessor) [directive](https://en.wikipedia.org/wiki/Directive_(programming)). This line simply tells to the compiler that a file need to be included into the program. The compiler, before the compilation, take the content of the file and _paste_ it at the location. In this case, `<stdio.h>` declares the prototype of `printf` function so to instruct the compiler on how to execute that specific call. To prove this point, you can remove the first line and replace it with: `int printf(const char *restrict format, ...);` which is the prototype of the function we want to call.
 
 ```c
 int printf(const char *restrict format, ...);

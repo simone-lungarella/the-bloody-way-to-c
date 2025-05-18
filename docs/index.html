@@ -2,7 +2,7 @@
 <p>This book is a humble attempt to capture every piece of information
 given by Salvatore Sanfilippo—aka <a
 href="https://github.com/antirez">antirez</a>—in his C course presented
-in Italian on YouTube.</p>
+on YouTube.</p>
 <p>Each chapter is written following each lesson and, if needed,
 integrated with personal consideration. Each snippet is written and
 tested by me and may vary from what is stated in the lessons.</p>
@@ -71,7 +71,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">This</span> is free software<span class="kw">;</span> <span class="ex">see</span> the source for copying conditions.  There is NO</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">warranty</span><span class="kw">;</span> <span class="ex">not</span> even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></code></pre></div>
 <p>Let’s consider the following simple <code>C</code> program contained
-in a file named—for instance—: <code>hello_world.c</code> (how
+in a file named—for instance—<code>hello_world.c</code> (how
 original):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -81,7 +81,7 @@ original):</p>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>You can use: <code>cc hello_world.c</code> to compile it to an
 executable program.</p>
-<p>The compiler generates—by default—an executable binary file:
+<p>The compiler generates an executable binary file named:
 <code>a.out</code>. This file is executable and runs your program. You
 can use: <code>file a.out</code> to check information about the
 generated file.</p>
@@ -137,19 +137,19 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.ident</span>  <span class="st">&quot;GCC: (GNU) 14.2.1 20240912 (Red Hat 14.2.1-3)&quot;</span></span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="ex">.section</span>    .note.GNU-stack,<span class="st">&quot;&quot;</span>,@progbits</span></code></pre></div>
 <p>With a given compiler, you can tweak many compilation aspects. For
-instance: <code>cc -O2 hello_world.c</code> tells the compiler to try to
+instance, <code>cc -O2 hello_world.c</code> tells the compiler to
 optimize the generated executable. A more optimized version of the
 executable is also slower to be generated and, if that does not make
 much sense for small programs, it can output a much better version of
 the program when a high enough level of complexity has been reached.</p>
 <p>With <a
 href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a>
-compiler, you can see that our simple program make use of:
+compiler, you can see that our simple program make use of
 <code>puts</code> <a
 href="https://en.wikipedia.org/wiki/System_call">syscall</a>, however,
-this depends on the compiler itself and often with different compilers,
-the line: <code>printf("Hello World\n");</code> is compiled using
-<code>printf</code> syscall instead.</p>
+this depends on the compiler itself and, often, with different
+compilers, the line: <code>printf("Hello World\n");</code> is compiled
+using <code>printf</code> syscall instead.</p>
 <p>Using <code>-O2</code> flag can make the compiler use
 <code>puts</code> as this syscall is faster than <code>printf</code>.
 This is a simple, yet meaningful, example but in such a small program it
@@ -160,20 +160,20 @@ developing, though, a low compilation time is often preferred.</p>
 <p>You can check the standard C library from the terminal using
 <code>man</code> or <code>--help</code> flags. For example, you can use
 <code>man 3 puts</code> or <code>man 3 printf</code> to check
-documentation on both syscalls (3 make sure to output the C library
+documentation of both syscalls (3 makes sure to output the C library
 description).</p>
 </blockquote>
 <h2 id="include-other-source-code">Include other source code</h2>
 <p>In the very first line of our simple program, you can see a <a
 href="https://en.wikipedia.org/wiki/Preprocessor">preprocessor</a> <a
 href="https://en.wikipedia.org/wiki/Directive_(programming)">directive</a>.
-This line simply tells to compiler that a file need to be included in
-the program. The compiler, before the compilation, take the content of
-the file and <em>paste</em> it at the location. In this case:
+This line simply tells to the compiler that a file need to be included
+into the program. The compiler, before the compilation, take the content
+of the file and <em>paste</em> it at the location. In this case,
 <code>&lt;stdio.h&gt;</code> declares the prototype of
-<code>printf</code> function so to instruct the compiler how to execute
-that specific call. To prove this point, you can remove the first line
-and replace it with:
+<code>printf</code> function so to instruct the compiler on how to
+execute that specific call. To prove this point, you can remove the
+first line and replace it with:
 <code>int printf(const char *restrict format, ...);</code> which is the
 prototype of the function we want to call.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> printf<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span><span class="dt">restrict</span> format<span class="op">,</span> <span class="op">...);</span></span>

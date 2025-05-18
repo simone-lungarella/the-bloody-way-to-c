@@ -21,7 +21,7 @@ header-includes:
 
 This book is a humble attempt to capture every piece of information given by Salvatore Sanfilippo—aka [antirez](https://github.com/antirez)—in his C course presented in Italian on YouTube.
 
-Each chapter is written following each lesson and, if needed, integrated with personal consideration. Each snippet is written and tested by the author and may vary from what is stated in the lessons.
+Each chapter is written following each lesson and, if needed, integrated with personal consideration. Each snippet is written and tested by me and may vary from what is stated in the lessons.
 
 # Introduction {-}
 
@@ -34,5 +34,5 @@ C was invented in [Bell Labs](https://it.wikipedia.org/wiki/Bell_Laboratories) w
 - integer;
 - floating point numbers: float;
 
-In that sense, `C` language can be visualized as `B` with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offset of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, achieve imagine in simple terms complex topics and algorithms.
+In that sense, `C` language can be visualized as `B` with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offsets of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, imagine in simple terms complex topics and algorithms.
 

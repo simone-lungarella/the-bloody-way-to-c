@@ -30,12 +30,11 @@ header-includes:
   - \definecolor{inlinecodebg}{HTML}{F5F5F5}
   - \let\oldtexttt\texttt
   - \renewcommand{\texttt}[1]{\colorbox{inlinecodebg}{\oldtexttt{#1}}}
-
   - \usepackage{xcolor}
   - \usepackage{mdframed}
   - \definecolor{notebg}{HTML}{F0F8FF}
   - \definecolor{noteframe}{HTML}{4682B4}
-  - \surroundwithmdframed[backgroundcolor=notebg,linecolor=noteframe,linewidth=2pt,leftline=true,rightline=false,topline=false,bottomline=false,innerleftmargin=1em,innerrightmargin=0pt,innertopmargin=1em,innerbottommargin=0.5em,skipabove=0.5em]{quote}
+  - \surroundwithmdframed[backgroundcolor=notebg,linecolor=noteframe,linewidth=2pt,leftline=true,rightline=false,topline=false,bottomline=false,innerleftmargin=0.2em,innerrightmargin=0pt,innertopmargin=0.5em,innerbottommargin=0.5em,skipabove=0.5em]{quote}
 ---
 
 \newpage

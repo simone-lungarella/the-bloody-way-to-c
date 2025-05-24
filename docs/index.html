@@ -176,9 +176,9 @@ prototype of the function we want to call.</p>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><code>#include</code> can also be used to include <em>C</em> files.
-In fact, you can move a single line to a different file and than compile
-a program that includes the file on the line you want it to be
+<p><code>#include</code> can also be used to include other <em>C</em>
+files. In fact, you can move a single line to a different file and than
+compile a program that includes the file on the line you want it to be
 replaced.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -187,3 +187,66 @@ replaced.</p>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The generated assembly or machine code will be equivalent.</p>
+<h2 id="functions">Functions</h2>
+<p>This very simple program has a single function named
+<code>main</code>. A function has always a return type, an
+<em>optional</em> list of parameters, and a body. The signature of the
+function <code>main</code> has a return type specified as
+<code>int</code>—this means that the function must return an integer
+value.</p>
+<p>Parameters are defined inside the brackets of the function and they
+too have a specific type. It is also possible to define a function that
+does not require any parameter. This can be explicit, using
+<code>void</code> as the function <code>main</code> does, or implicit,
+by simply avoiding specifying any parameter:
+<code>int main() {}</code>.</p>
+<p>Functions can call other functions too!</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> sum<span class="op">(</span><span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">));</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The function <code>main</code> is a special function, in fact, it is
+the only function that is automatically called by the program. Other
+functions must be explicitly called. This means that a valid <em>C</em>
+program must define the <code>main</code> function.</p>
+<h2 id="variables">Variables</h2>
+<p>Functions parameters are variables. Each variable can have a
+different type and a different scope. In the previous example, the
+function <code>int sum(int a, int b)</code> has—as parameters—two
+variables.</p>
+<p>Both variables have a local scope, valid only in the function itself
+and have no meaning in another functions. To understand this concept,
+let’s consider the following program:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> a <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> c <span class="op">=</span> <span class="dv">20</span><span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> sum<span class="op">(</span>a<span class="op">,</span> c<span class="op">));</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>This is a valid <em>C</em> program, equivalent to the previous, and,
+as you can see, the variable named <code>a</code> exists twice with the
+same name. This is possible because in both cases, the variable scope is
+local to the function itself and it’s removed after the function has
+returned its value.</p>
+<blockquote>
+<p>The function <code>main</code> has a return type but since it is
+automatically called by the program, the only one that can be interested
+in its value is the callee: the program executor. If executed from a
+shell, the program returns its value and can be shown with
+<code>./a.out; echo $?</code>. This is quite useful combined with the
+fact that <code>0</code> is equivalent to <code>true</code> in Unix
+shells.</p>
+</blockquote>

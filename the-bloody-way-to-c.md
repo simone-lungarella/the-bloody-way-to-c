@@ -30,6 +30,12 @@ header-includes:
   - \definecolor{inlinecodebg}{HTML}{F5F5F5}
   - \let\oldtexttt\texttt
   - \renewcommand{\texttt}[1]{\colorbox{inlinecodebg}{\oldtexttt{#1}}}
+
+  - \usepackage{xcolor}
+  - \usepackage{mdframed}
+  - \definecolor{notebg}{HTML}{F0F8FF}
+  - \definecolor{noteframe}{HTML}{4682B4}
+  - \surroundwithmdframed[backgroundcolor=notebg,linecolor=noteframe,linewidth=2pt,leftline=true,rightline=false,topline=false,bottomline=false,innerleftmargin=1em,innerrightmargin=0pt,innertopmargin=1em,innerbottommargin=0.5em,skipabove=0.5em]{quote}
 ---
 
 \newpage
@@ -170,7 +176,7 @@ int main(void) {
 }
 ```
 
-`#include` can also be used to include *C* files. In fact, you can move a single line to a different file and than compile a program that includes the file on the line you want it to be replaced.
+`#include` can also be used to include other *C* files. In fact, you can move a single line to a different file and than compile a program that includes the file on the line you want it to be replaced.
 
 ```c
 #include <stdio.h>
@@ -182,3 +188,51 @@ int main(void) {
 ```
 
 The generated assembly or machine code will be equivalent.
+
+## Functions
+This very simple program has a single function named `main`. A function has always a return type, an _optional_ list of parameters, and a body. The signature of the function `main` has a return type specified as `int`—this means that the function must return an integer value. 
+
+Parameters are defined inside the brackets of the function and they too have a specific type. It is also possible to define a function that does not require any parameter. This can be explicit, using `void` as the function `main` does, or implicit, by simply avoiding specifying any parameter: `int main() {}`.
+
+Functions can call other functions too!
+
+```c
+#include <stdio.h>
+
+int sum(int a, int b) {
+  return a + b;
+}
+
+int main(void) {
+  printf("Hello World %d\n", sum(10, 20));
+  return 0;
+}
+```
+
+The function `main` is a special function, in fact, it is the only function that is automatically called by the program. Other functions must be explicitly called. This means that a valid *C* program must define the `main` function.
+
+## Variables
+Functions parameters are variables. Each variable can have a different type and a different scope. In the previous example, the function `int sum(int a, int b)` has—as parameters—two variables. 
+
+Both variables have a local scope, valid only in the function itself and have no meaning in another functions. To understand this concept, let's consider the following program:
+
+```c
+#include <stdio.h>
+
+int sum(int a, int b) {
+  return a + b;
+}
+
+int main(void) {
+  int a = 10;
+  int c = 20;
+
+  printf("Hello World %d\n", sum(a, c));
+  return 0;
+}
+```
+
+This is a valid *C* program, equivalent to the previous, and, as you can see, the variable named `a` exists twice with the same name. This is possible because in both cases, the variable scope is local to the function itself and it's removed after the function has returned its value.
+
+> The function `main` has a return type but since it is automatically called by the program, the only one that can be interested in its value is the callee: the program executor. If executed from a shell, the program returns its value and can be shown with `./a.out; echo $?`. This is quite useful combined with the fact that `0` is equivalent to `true` in Unix shells.
+

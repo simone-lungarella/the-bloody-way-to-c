@@ -19,6 +19,17 @@ header-includes:
   - \pagestyle{fancy}
   - \fancyhf{}
   - \fancyfoot[C]{\thepage}
+  - \usepackage{etoolbox}
+  - \AtBeginEnvironment{Highlighting}{\vspace{1em}}
+  - \AfterEndEnvironment{Highlighting}{\vspace{1em}}
+  - \usepackage{fvextra}
+  - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\},xleftmargin=1em}
+  - \AtBeginEnvironment{Highlighting}{\vspace{0.5em}}
+  - \AfterEndEnvironment{Highlighting}{\vspace{0.5em}}
+  - \usepackage{xcolor}
+  - \definecolor{inlinecodebg}{HTML}{F5F5F5}
+  - \let\oldtexttt\texttt
+  - \renewcommand{\texttt}[1]{\colorbox{inlinecodebg}{\oldtexttt{#1}}}
 ---
 
 \newpage
@@ -36,19 +47,19 @@ Each chapter is written following each lesson and, if needed, integrated with pe
 ## The C language, as an idea of computation {-}
 C was invented in [Bell Labs](https://it.wikipedia.org/wiki/Bell_Laboratories) when [Ken Thompson](https://it.wikipedia.org/wiki/Ken_Thompson) was working on Unix. Following the idea that a good operating system should have had a high level compiled language. After abandoning the first attempt on creating a compiler for [`Fortran`](https://it.wikipedia.org/wiki/Fortran), a smaller new language was created and named [`B`](https://en.wikipedia.org/wiki/B_(programming_language)). `B` better fitted [P2P11](https://en.wikipedia.org/wiki/PDP-11) but was not enough to port Unix from Assembly. [`C`](https://en.wikipedia.org/wiki/C_(programming_language)) was created with a set of feature that were missing in `B` and was a much better fit for the Unix system.
 
-`C` was a better language mainly because its multiple distinct types:
+*C* was a better language mainly because its multiple distinct types:
 
 - pointers;
 - integer;
 - floating point numbers: float;
 
-In that sense, `C` language can be visualized as `B` with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offsets of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, imagine in simple terms complex topics and algorithms.
+In that sense, *C* language can be visualized as *B* with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offsets of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, imagine in simple terms complex topics and algorithms.
 
 ## The CLI, as a lifestyle {-}
 
-To understand every aspect of `C`, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will remain valid.
+To understand every aspect of *C*, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will remain valid.
 
-I strongly believe that the best way to develop software is by using `CLI` and lightweight text editors such as `neovim` or `vim`. Whenever is possible I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
+I strongly believe that the best way to develop software is by using *CLI* and lightweight text editors such as `neovim` or `vim`. Whenever is possible I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
 
 \newpage
 
@@ -56,19 +67,19 @@ I strongly believe that the best way to develop software is by using `CLI` and l
 
 ## Execute a C program
 
-`C` is a compiled language, this means you cannot execute a file containing the main function. It requires to be compiled.
+*C* is a compiled language, this means you cannot execute a file containing the main function. It requires to be compiled.
 
-You can use: `cc` to compile a `C` program. `cc` is a Unix command that let you easily communicate with the compiler. You can use: `cc --version` to check what compiler does it use.
+You can use: `cc` to compile a *C* program. `cc` is a Unix command that let you easily communicate with the compiler. You can use: `cc --version` to check what compiler does it use.
 
-```bash
-> cc --version
+```txt
 cc (GCC) 14.2.1 20240912 (Red Hat 14.2.1-3)
 Copyright (C) 2024 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
-Let's consider the following simple `C` program contained in a file named—for instance—`hello_world.c` (how original):
+
+Let's consider the following simple *C* program contained in a file named—for instance—*hello_world.c* (how original):
 
 ```c
 #include <stdio.h>
@@ -81,10 +92,9 @@ int main(void) {
 
 You can use: `cc hello_world.c` to compile it to an executable program.
 
-The compiler generates an executable binary file named: `a.out`. This file is executable and runs your program. You can use: `file a.out` to check information about the generated file.
+The compiler generates an executable binary file named: *a.out*. This file is executable and runs your program. You can use: `file a.out` to check information about the generated file.
 
-```bash
-> file a.out
+```txt
 ./a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, \
 interpreter /lib64/ld-linux-x86-64.so.2, \
 BuildID[sha1]=d589730d718a032a35f848fe8d280063a6cee18c, \
@@ -93,8 +103,7 @@ for GNU/Linux 3.2.0, not stripped
 
 If you want to check the content of the generated binary file, you can use: `hexdump -C a.out`.
 
-```bash
-> hexdump -C a.out
+```txt
 00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
 00000010  02 00 3e 00 01 00 00 00  40 10 40 00 00 00 00 00  |..>.....@.@.....|
 00000020  40 00 00 00 00 00 00 00  f0 38 00 00 00 00 00 00  |@........8......|
@@ -105,10 +114,11 @@ If you want to check the content of the generated binary file, you can use: `hex
 [...]
 ```
 
+\newpage
+
 You can also generate [Assembly](https://en.wikipedia.org/wiki/Assembly_language) code using: `cc -S hello_world.c` if the compiler supports this feature.
 
-```bash
-> cat hello_world.s
+```gnuassembler
 	.file	"hello_world.c"
 	.text
 	.section	.rodata
@@ -146,6 +156,8 @@ Using `-O2` flag can make the compiler use `puts` as this syscall is faster than
 
 > You can check the standard C library from the terminal using `man` or `--help` flags. For example, you can use `man 3 puts` or `man 3 printf` to check documentation of both syscalls (3 makes sure to output the C library description).
 
+\newpage
+
 ## Include other source code
 In the very first line of our simple program, you can see a [preprocessor](https://en.wikipedia.org/wiki/Preprocessor) [directive](https://en.wikipedia.org/wiki/Directive_(programming)). This line simply tells to the compiler that a file need to be included into the program. The compiler, before the compilation, take the content of the file and _paste_ it at the location. In this case, `<stdio.h>` declares the prototype of `printf` function so to instruct the compiler on how to execute that specific call. To prove this point, you can remove the first line and replace it with: `int printf(const char *restrict format, ...);` which is the prototype of the function we want to call.
 
@@ -158,7 +170,7 @@ int main(void) {
 }
 ```
 
-`#include` can also be used to include `C` files. In fact, you can move a single line to a different file and than compile a program that includes the file on the line you want it to be replaced.
+`#include` can also be used to include *C* files. In fact, you can move a single line to a different file and than compile a program that includes the file on the line you want it to be replaced.
 
 ```c
 #include <stdio.h>

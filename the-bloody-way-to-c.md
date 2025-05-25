@@ -3,7 +3,14 @@ title: "The Bloody Way to C"
 subtitle: "A Brutalist Approach to C Language—No Boilerplate"
 author: "Simone Lungarella (simonelungarella@gmail.com)"
 date: "2025-05-11"
-lang: "en"
+lang: "en-US"
+pdfmetadata:
+  Title: "The Bloody Way to C"
+  Author: "Simone Lungarella"
+  Subject: "Low-level C Programming"
+  Keywords: [C, programming, systems, low-level]
+  Language: "en-US"
+
 geometry: margin=1in
 fontfamily: lmodern
 toc: true
@@ -11,14 +18,6 @@ toc-depth: 2
 numbersections: true
 colorlinks: true
 header-includes:
-  - \usepackage{float}
-  - \let\origfigure\figure
-  - \let\endorigfigure\endfigure
-  - \renewenvironment{figure}[1][2]{\expandafter\origfigure\expandafter[H]}{\endorigfigure}
-  - \usepackage{fancyhdr}
-  - \pagestyle{fancy}
-  - \fancyhf{}
-  - \fancyfoot[C]{\thepage}
   - \usepackage{etoolbox}
   - \AtBeginEnvironment{Highlighting}{\vspace{1em}}
   - \AfterEndEnvironment{Highlighting}{\vspace{1em}}
@@ -35,6 +34,15 @@ header-includes:
   - \definecolor{notebg}{HTML}{F0F8FF}
   - \definecolor{noteframe}{HTML}{4682B4}
   - \surroundwithmdframed[backgroundcolor=notebg,linecolor=noteframe,linewidth=2pt,leftline=true,rightline=false,topline=false,bottomline=false,innerleftmargin=0.2em,innerrightmargin=0pt,innertopmargin=0.5em,innerbottommargin=0.5em,skipabove=0.5em]{quote}
+  - \usepackage{hyperref}
+  - \hypersetup{
+      pdftitle={The Bloody Way to C},
+      pdfauthor={Simone Lungarella},
+      pdfsubject={Low-level C Programming},
+      pdfkeywords={C, systems programming},
+      pdfcreator={Pandoc + XeLaTeX},
+      pdfproducer={XeLaTeX}
+    }
 ---
 
 \newpage
@@ -107,17 +115,6 @@ for GNU/Linux 3.2.0, not stripped
 ```
 
 If you want to check the content of the generated binary file, you can use: `hexdump -C a.out`.
-
-```txt
-00000000  7f 45 4c 46 02 01 01 00  00 00 00 00 00 00 00 00  |.ELF............|
-00000010  02 00 3e 00 01 00 00 00  40 10 40 00 00 00 00 00  |..>.....@.@.....|
-00000020  40 00 00 00 00 00 00 00  f0 38 00 00 00 00 00 00  |@........8......|
-00000030  00 00 00 00 40 00 38 00  0d 00 40 00 20 00 1f 00  |....@.8...@. ...|
-00000040  06 00 00 00 04 00 00 00  40 00 00 00 00 00 00 00  |........@.......|
-00000050  40 00 40 00 00 00 00 00  40 00 40 00 00 00 00 00  |@.@.....@.@.....|
-00000060  d8 02 00 00 00 00 00 00  d8 02 00 00 00 00 00 00  |................|
-[...]
-```
 
 \newpage
 

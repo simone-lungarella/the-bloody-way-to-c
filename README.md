@@ -8,5 +8,5 @@ This challenge has the only goal to improve my ability to write technical docume
 
 The whole document is written to be converted in [PDF](https://it.wikipedia.org/wiki/Portable_Document_Format) using [pandoc](https://pandoc.org/) so any complex syntax will be avoided.
 
-- Have a look at document updated weekly: [The Bloody Way To C.pdf](./The Bloody Way To C.pdf);
+- Have a look at document updated weekly: [The Bloody Way To C.pdf](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/The%20Bloody%20Way%20To%20C.pdf);
 - Enjoy the simple `HTML` version upload at: [the-bloody-way-to-c](https://simone-lungarella.github.io/the-bloody-way-to-c/);

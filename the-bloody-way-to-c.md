@@ -208,9 +208,12 @@ int main(void) {
 The function `main` is a special function, in fact, it is the only function that is automatically called by the program. Other functions must be explicitly called. This means that a valid *C* program must define the `main` function.
 
 ## Variables
-Functions parameters are variables. Each variable can have a different type and a different scope. In the previous example, the function `int sum(int a, int b)` has—as parameters—two variables. 
+Functions parameters are variables existing only during the function execution. There are variables which are not involved only in function calls but also have a meaning in the callee context or even in the whole program context.
 
-Both variables have a local scope, valid only in the function itself and have no meaning in another functions. To understand this concept, let's consider the following program:
+### Scope
+Variables can have different scope. In the previous example, the function `int sum(int a, int b)` has two variables as parameters having a local scope. When variables are local, they are valid only within the function context and have no meaning to other functions. 
+
+To understand this concept, let's consider the following program:
 
 ```c
 #include <stdio.h>
@@ -230,5 +233,68 @@ int main(void) {
 
 This is a valid *C* program, equivalent to the previous, and, as you can see, the variable named `a` exists twice with the same name. This is possible because in both cases, the variable scope is local to the function itself and it's removed after the function has returned its value.
 
+\vspace{0.5cm}
+
 > The function `main` has a return type but since it is automatically called by the program, the only one that can be interested in its value is the callee: the program executor. If executed from a shell, the program returns its value and can be shown with `./a.out; echo $?`. This is quite useful combined with the fact that `0` is equivalent to `true` in Unix shells.
 
+\newpage
+
+Variables can also have a global scope. A global variable is seen by every function and initialized only once.
+
+```c
+#include <stdio.h>
+
+int x = 0;
+
+void incr(void) {
+  x = x + 1;
+  printf("%d\n", x);
+}
+
+int main(void) {
+  incr();
+  incr();
+
+  return 0;
+}
+```
+
+In such cases the value of _x_ is incremented by one each time the function is called. Values of local variables can also be retained through multiple function calls if they are defined as static: `static int x = 0;`.
+
+It's important to highlight that, in _C_, variables are passed _by value_. This means that whenever a function is called, it cannot modify any existing variable local to the callee but, for each of its parameters, a copy of the value is passed. To modify local variables with functions it is necessary to use _pointers_ which will be described extensively in the next paragraph.
+
+### Type
+We have seen variables having type _int_, but there are multiple primitive types that can define different kinds of data. For simplicity, a subset of common primitive types is shown in the following table, refer to the [standard documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types) to explore all different existing types.
+
+| Type                 | Size (b)              | Description                           |
+| -------------------- | :-------------------: | ------------------------------------- |
+| int                  | 32                    | Signed numbers                        |
+| float                | 32                    | Floating point numbers                |
+| double               | 64                    | High precision floating point numbers |
+| char                 | 8                     | Characters                            |
+| short                | 16                    | Shorter signed numbers                |
+
+> All size reported are not guaranteed by C specification, it mainly depends on architectures.
+
+\vspace{0.5cm}
+
+In many cases, types are automatically promoted to a higher size type to easily handle similar cases. For instance, `printf` will promote `char` or `short` values to `int` enabling developers to simplify the usage of the function.
+
+
+```c
+  short s = 400;
+
+  // `s` is automatically converted.
+  printf("%d\n", s);
+```
+
+This happens with functions such as `printf`, which accept a variable number of parameters (variadic function), but also during expressions evaluations if necessary.
+
+
+```c
+  char c = 127;
+
+  // Before evaluation, `c` is promoted to int.
+  int i = c + 1;
+  printf("%d\n", i);
+```

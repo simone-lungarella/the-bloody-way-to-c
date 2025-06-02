@@ -207,13 +207,17 @@ the only function that is automatically called by the program. Other
 functions must be explicitly called. This means that a valid <em>C</em>
 program must define the <code>main</code> function.</p>
 <h2 id="variables">Variables</h2>
-<p>Functions parameters are variables. Each variable can have a
-different type and a different scope. In the previous example, the
-function <code>int sum(int a, int b)</code> has—as parameters—two
-variables.</p>
-<p>Both variables have a local scope, valid only in the function itself
-and have no meaning in another functions. To understand this concept,
-let’s consider the following program:</p>
+<p>Functions parameters are variables existing only during the function
+execution. There are variables which are not involved only in function
+calls but also have a meaning in the callee context or even in the whole
+program context.</p>
+<h3 id="scope">Scope</h3>
+<p>Variables can have different scope. In the previous example, the
+function <code>int sum(int a, int b)</code> has two variables as
+parameters having a local scope. When variables are local, they are
+valid only within the function context and have no meaning to other
+functions.</p>
+<p>To understand this concept, let’s consider the following program:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
@@ -241,3 +245,99 @@ shell, the program returns its value and can be shown with
 fact that <code>0</code> is equivalent to <code>true</code> in Unix
 shells.</p>
 </blockquote>
+<p>Variables can also have a global scope. A global variable is seen by
+every function and initialized only once.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> incr<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> x<span class="op">);</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  incr<span class="op">();</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  incr<span class="op">();</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>In such cases the value of <em>x</em> is incremented by one each time
+the function is called. Values of local variables can also be retained
+through multiple function calls if they are defined as static:
+<code>static int x = 0;</code>.</p>
+<p>It’s important to highlight that, in <em>C</em>, variables are passed
+<em>by value</em>. This means that whenever a function is called, it
+cannot modify any existing variable local to the callee but, for each of
+its parameters, a copy of the value is passed. To modify local variables
+with functions it is necessary to use <em>pointers</em> which will be
+described extensively in the next paragraph.</p>
+<h3 id="type">Type</h3>
+<p>We have seen variables having type <em>int</em>, but there are
+multiple primitive types that can define different kinds of data. For
+simplicity, a subset of common primitive types is shown in the following
+table, refer to the <a
+href="https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types">standard
+documentation</a> to explore all different existing types.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 26%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th style="text-align: center;">Size (b)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>int</td>
+<td style="text-align: center;">32</td>
+<td>Signed numbers</td>
+</tr>
+<tr class="even">
+<td>float</td>
+<td style="text-align: center;">32</td>
+<td>Floating point numbers</td>
+</tr>
+<tr class="odd">
+<td>double</td>
+<td style="text-align: center;">64</td>
+<td>High precision floating point numbers</td>
+</tr>
+<tr class="even">
+<td>char</td>
+<td style="text-align: center;">8</td>
+<td>Characters</td>
+</tr>
+<tr class="odd">
+<td>short</td>
+<td style="text-align: center;">16</td>
+<td>Shorter signed numbers</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>All size reported are not guaranteed by C specification, it mainly
+depends on architectures.</p>
+</blockquote>
+<p>In many cases, types are automatically promoted to a higher size type
+to easily handle similar cases. For instance, <code>printf</code> will
+promote <code>char</code> or <code>short</code> values to
+<code>int</code> enabling developers to simplify the usage of the
+function.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">short</span> s <span class="op">=</span> <span class="dv">400</span><span class="op">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// `s` is automatically converted.</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> s<span class="op">);</span></span></code></pre></div>
+<p>This happens with functions such as <code>printf</code>, which accept
+a variable number of parameters (variadic function), but also during
+expressions evaluations if necessary.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> c <span class="op">=</span> <span class="dv">127</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Before evaluation, `c` is promoted to int.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> i <span class="op">=</span> c <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span></code></pre></div>

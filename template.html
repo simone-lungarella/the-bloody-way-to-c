@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$title$</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      margin: 2em auto;
+      max-width: 800px;
+      padding: 0 1em;
+      background-color: #fdfdfd;
+      color: #222;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: sans-serif;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.2em;
+      margin-top: 2em;
+    }
+
+    pre, code {
+      background-color: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: monospace;
+      overflow-x: auto;
+    }
+
+    pre {
+      padding: 1em;
+      overflow: auto;
+      background-color: #f0f0f0;
+    }
+
+    blockquote {
+      border-left: 4px solid #ccc;
+      padding-left: 1em;
+      color: #666;
+      margin-left: 0;
+    }
+
+    a {
+      color: #0645ad;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: left;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    /* DARK MODE */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1e1e1e;
+        color: #ccc;
+      }
+
+      pre, code {
+        background-color: #2d2d2d;
+        color: #f8f8f2;
+      }
+
+      pre {
+        background-color: #2d2d2d;
+      }
+
+      h1, h2, h3, h4 {
+        border-color: #555;
+        color: #fff;
+      }
+
+      blockquote {
+        border-left: 4px solid #666;
+        color: #aaa;
+      }
+
+      a {
+        color: #88c0d0;
+      }
+
+      table, th, td {
+        border-color: #444;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>$title$</h1>
+    $if(author)$<p><em>by $author$</em></p>$endif$
+    $if(date)$<p><small>$date$</small></p>$endif$
+  </header>
+
+  <main>
+    $body$
+  </main>
+</body>
+</html>

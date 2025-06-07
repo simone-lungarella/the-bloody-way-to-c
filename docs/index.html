@@ -1,100 +1,218 @@
-<h1 class="unnumbered" id="preface">Preface</h1>
-<p>This book is a humble attempt to capture every piece of information
-given by Salvatore Sanfilippo—aka <a
-href="https://github.com/antirez">antirez</a>—in his C course presented
-on YouTube.</p>
-<p>Each chapter is written following each lesson and, if needed,
-integrated with personal consideration. Each snippet is written and
-tested by me and may vary from what is stated in the lessons.</p>
-<h1 class="unnumbered" id="introduction">Introduction</h1>
-<h2 class="unnumbered" id="the-c-language-as-an-idea-of-computation">The
-C language, as an idea of computation</h2>
-<p>C was invented in <a
-href="https://it.wikipedia.org/wiki/Bell_Laboratories">Bell Labs</a>
-when <a href="https://it.wikipedia.org/wiki/Ken_Thompson">Ken
-Thompson</a> was working on Unix. Following the idea that a good
-operating system should have had a high level compiled language. After
-abandoning the first attempt on creating a compiler for <a
-href="https://it.wikipedia.org/wiki/Fortran"><code>Fortran</code></a>, a
-smaller new language was created and named <a
-href="https://en.wikipedia.org/wiki/B_(programming_language)"><code>B</code></a>.
-<code>B</code> better fitted <a
-href="https://en.wikipedia.org/wiki/PDP-11">P2P11</a> but was not enough
-to port Unix from Assembly. <a
-href="https://en.wikipedia.org/wiki/C_(programming_language)"><code>C</code></a>
-was created with a set of feature that were missing in <code>B</code>
-and was a much better fit for the Unix system.</p>
-<p><em>C</em> was a better language mainly because its multiple distinct
-types:</p>
-<ul class="incremental">
-<li>pointers;</li>
-<li>integer;</li>
-<li>floating point numbers: float;</li>
-</ul>
-<p>In that sense, <em>C</em> language can be visualized as <em>B</em>
-with types where all types can also be imagined as integers since
-pointers—in very simple terms—are integers and so are structures. In
-fact, structures are a set of integers representing offsets of each
-field position in memory and values of the very same fields. This
-simplicity can be considered the strength of the language as it can be
-easily picked up by new developers, layered to build a powerful
-abstraction and, with that, imagine in simple terms complex topics and
-algorithms.</p>
-<h2 class="unnumbered" id="the-cli-as-a-lifestyle">The CLI, as a
-lifestyle</h2>
-<p>To understand every aspect of <em>C</em>, many tools will be used and
-all examples will refer to <a
-href="https://en.wikipedia.org/wiki/Command-line_interface">CLI</a>
-commands. I will be using <a href="https://neovim.io/">Neovim</a> as
-text editor and operate on a Linux machine. The output of commands and
-all examples may differ from machine to machine but the concepts will
-remain valid.</p>
-<p>I strongly believe that the best way to develop software is by using
-<em>CLI</em> and lightweight text editors such as <code>neovim</code> or
-<code>vim</code>. Whenever is possible I will avoid using browsers to
-search for documentation by preferring usage of <code>man</code>
-directly into the terminal. This will keep low the friction and avoid
-the necessity to leave the home row of my keyboard.</p>
-<h1 id="anatomy-of-a-c-program">Anatomy of a C program</h1>
-<h2 id="execute-a-c-program">Execute a C program</h2>
-<p><em>C</em> is a compiled language, this means you cannot execute a
-file containing the main function. It requires to be compiled.</p>
-<p>You can use: <code>cc</code> to compile a <em>C</em> program.
-<code>cc</code> is a Unix command that let you easily communicate with
-the compiler. You can use: <code>cc --version</code> to check what
-compiler does it use.</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cc (GCC) 14.2.1 20240912 (Red Hat 14.2.1-3)</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Bloody Way to C</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      margin: 2em auto;
+      max-width: 800px;
+      padding: 0 1em;
+      background-color: #fdfdfd;
+      color: #222;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: sans-serif;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.2em;
+      margin-top: 2em;
+    }
+
+    pre, code {
+      background-color: #f5f5f5;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-family: monospace;
+      overflow-x: auto;
+    }
+
+    pre {
+      padding: 1em;
+      overflow: auto;
+      background-color: #f0f0f0;
+    }
+
+    blockquote {
+      border-left: 4px solid #ccc;
+      padding-left: 1em;
+      color: #666;
+      margin-left: 0;
+    }
+
+    a {
+      color: #0645ad;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: left;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    /* DARK MODE */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1e1e1e;
+        color: #ccc;
+      }
+
+      pre, code {
+        background-color: #2d2d2d;
+        color: #f8f8f2;
+      }
+
+      pre {
+        background-color: #2d2d2d;
+      }
+
+      h1, h2, h3, h4 {
+        border-color: #555;
+        color: #fff;
+      }
+
+      blockquote {
+        border-left: 4px solid #666;
+        color: #aaa;
+      }
+
+      a {
+        color: #88c0d0;
+      }
+
+      table, th, td {
+        border-color: #444;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>The Bloody Way to C</h1>
+    <p><em>by Simone Lungarella (simonelungarella@gmail.com)</em></p>
+    <p><small>2025-05-11</small></p>
+  </header>
+
+  <main>
+    <h1 class="unnumbered" id="preface">Preface</h1>
+    <p>This book is a humble attempt to capture every piece of
+    information given by Salvatore Sanfilippo—aka <a
+    href="https://github.com/antirez">antirez</a>—in his C course
+    presented on YouTube.</p>
+    <p>Each chapter is written following each lesson and, if needed,
+    integrated with personal consideration. Each snippet is written and
+    tested by me and may vary from what is stated in the lessons.</p>
+    <h1 class="unnumbered" id="introduction">Introduction</h1>
+    <h2 class="unnumbered"
+    id="the-c-language-as-an-idea-of-computation">The C language, as an
+    idea of computation</h2>
+    <p>C was invented in <a
+    href="https://it.wikipedia.org/wiki/Bell_Laboratories">Bell Labs</a>
+    when <a href="https://it.wikipedia.org/wiki/Ken_Thompson">Ken
+    Thompson</a> was working on Unix. Following the idea that a good
+    operating system should have had a high level compiled language.
+    After abandoning the first attempt on creating a compiler for <a
+    href="https://it.wikipedia.org/wiki/Fortran"><code>Fortran</code></a>,
+    a smaller new language was created and named <a
+    href="https://en.wikipedia.org/wiki/B_(programming_language)"><code>B</code></a>.
+    <code>B</code> better fitted <a
+    href="https://en.wikipedia.org/wiki/PDP-11">P2P11</a> but was not
+    enough to port Unix from Assembly. <a
+    href="https://en.wikipedia.org/wiki/C_(programming_language)"><code>C</code></a>
+    was created with a set of feature that were missing in
+    <code>B</code> and was a much better fit for the Unix system.</p>
+    <p><em>C</em> was a better language mainly because its multiple
+    distinct types:</p>
+    <ul class="incremental">
+    <li>pointers;</li>
+    <li>integer;</li>
+    <li>floating point numbers: float;</li>
+    </ul>
+    <p>In that sense, <em>C</em> language can be visualized as
+    <em>B</em> with types where all types can also be imagined as
+    integers since pointers—in very simple terms—are integers and so are
+    structures. In fact, structures are a set of integers representing
+    offsets of each field position in memory and values of the very same
+    fields. This simplicity can be considered the strength of the
+    language as it can be easily picked up by new developers, layered to
+    build a powerful abstraction and, with that, imagine in simple terms
+    complex topics and algorithms.</p>
+    <h2 class="unnumbered" id="the-cli-as-a-lifestyle">The CLI, as a
+    lifestyle</h2>
+    <p>To understand every aspect of <em>C</em>, many tools will be used
+    and all examples will refer to <a
+    href="https://en.wikipedia.org/wiki/Command-line_interface">CLI</a>
+    commands. I will be using <a href="https://neovim.io/">Neovim</a> as
+    text editor and operate on a Linux machine. The output of commands
+    and all examples may differ from machine to machine but the concepts
+    will remain valid.</p>
+    <p>I strongly believe that the best way to develop software is by
+    using <em>CLI</em> and lightweight text editors such as
+    <code>neovim</code> or <code>vim</code>. Whenever is possible I will
+    avoid using browsers to search for documentation by preferring usage
+    of <code>man</code> directly into the terminal. This will keep low
+    the friction and avoid the necessity to leave the home row of my
+    keyboard.</p>
+    <h1 id="anatomy-of-a-c-program">Anatomy of a C program</h1>
+    <h2 id="execute-a-c-program">Execute a C program</h2>
+    <p><em>C</em> is a compiled language, this means you cannot execute
+    a file containing the main function. It requires to be compiled.</p>
+    <p>You can use: <code>cc</code> to compile a <em>C</em> program.
+    <code>cc</code> is a Unix command that let you easily communicate
+    with the compiler. You can use: <code>cc --version</code> to check
+    what compiler does it use.</p>
+    <div class="sourceCode" id="cb1"><pre
+    class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cc (GCC) 14.2.1 20240912 (Red Hat 14.2.1-3)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Copyright (C) 2024 Free Software Foundation, Inc.</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>This is free software; see the source for copying conditions.  There is NO</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span></code></pre></div>
-<p>Let’s consider the following simple <em>C</em> program contained in a
-file named—for instance—<em>hello_world.c</em> (how original):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+    <p>Let’s consider the following simple <em>C</em> program contained
+    in a file named—for instance—<em>hello_world.c</em> (how
+    original):</p>
+    <div class="sourceCode" id="cb2"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>You can use: <code>cc hello_world.c</code> to compile it to an
-executable program.</p>
-<p>The compiler generates an executable binary file named:
-<em>a.out</em>. This file is executable and runs your program. You can
-use: <code>file a.out</code> to check information about the generated
-file.</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode txt"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>./a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, \</span>
+    <p>You can use: <code>cc hello_world.c</code> to compile it to an
+    executable program.</p>
+    <p>The compiler generates an executable binary file named:
+    <em>a.out</em>. This file is executable and runs your program. You
+    can use: <code>file a.out</code> to check information about the
+    generated file.</p>
+    <div class="sourceCode" id="cb3"><pre
+    class="sourceCode txt"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>./a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, \</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>interpreter /lib64/ld-linux-x86-64.so.2, \</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>BuildID[sha1]=d589730d718a032a35f848fe8d280063a6cee18c, \</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>for GNU/Linux 3.2.0, not stripped</span></code></pre></div>
-<p>If you want to check the content of the generated binary file, you
-can use: <code>hexdump -C a.out</code>.</p>
-<p>You can also generate <a
-href="https://en.wikipedia.org/wiki/Assembly_language">Assembly</a> code
-using: <code>cc -S hello_world.c</code> if the compiler supports this
-feature.</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.file</span>   <span class="st">&quot;hello_world.c&quot;</span></span>
+    <p>If you want to check the content of the generated binary file,
+    you can use: <code>hexdump -C a.out</code>.</p>
+    <p>You can also generate <a
+    href="https://en.wikipedia.org/wiki/Assembly_language">Assembly</a>
+    code using: <code>cc -S hello_world.c</code> if the compiler
+    supports this feature.</p>
+    <div class="sourceCode" id="cb4"><pre
+    class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.file</span>   <span class="st">&quot;hello_world.c&quot;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.text</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.section</span>    <span class="kw">.rodata</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">.LC0:</span></span>
@@ -121,78 +239,84 @@ class="sourceCode gnuassembler"><code class="sourceCode gnuassembler"><span id="
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.size</span>   main<span class="op">,</span> .<span class="op">-</span>main</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.ident</span>  <span class="st">&quot;GCC: (GNU) 14.2.1 20240912 (Red Hat 14.2.1-3)&quot;</span></span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">.section</span>    .note.GNU<span class="op">-</span>stack<span class="op">,</span><span class="st">&quot;&quot;</span><span class="op">,</span><span class="co">@progbits</span></span></code></pre></div>
-<p>With a given compiler, you can tweak many compilation aspects. For
-instance, <code>cc -O2 hello_world.c</code> tells the compiler to
-optimize the generated executable. A more optimized version of the
-executable is also slower to be generated and, if that does not make
-much sense for small programs, it can output a much better version of
-the program when a high enough level of complexity has been reached.</p>
-<p>With <a
-href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a>
-compiler, you can see that our simple program make use of
-<code>puts</code> <a
-href="https://en.wikipedia.org/wiki/System_call">syscall</a>, however,
-this depends on the compiler itself and, often, with different
-compilers, the line: <code>printf("Hello World\n");</code> is compiled
-using <code>printf</code> syscall instead.</p>
-<p>Using <code>-O2</code> flag can make the compiler use
-<code>puts</code> as this syscall is faster than <code>printf</code>.
-This is a simple, yet meaningful, example but in such a small program it
-does make no difference in terms of execution speed. The compiler is
-very good at improving written programs if given enough time. While
-developing, though, a low compilation time is often preferred.</p>
-<blockquote>
-<p>You can check the standard C library from the terminal using
-<code>man</code> or <code>--help</code> flags. For example, you can use
-<code>man 3 puts</code> or <code>man 3 printf</code> to check
-documentation of both syscalls (3 makes sure to output the C library
-description).</p>
-</blockquote>
-<h2 id="include-other-source-code">Include other source code</h2>
-<p>In the very first line of our simple program, you can see a <a
-href="https://en.wikipedia.org/wiki/Preprocessor">preprocessor</a> <a
-href="https://en.wikipedia.org/wiki/Directive_(programming)">directive</a>.
-This line simply tells to the compiler that a file need to be included
-into the program. The compiler, before the compilation, take the content
-of the file and <em>paste</em> it at the location. In this case,
-<code>&lt;stdio.h&gt;</code> declares the prototype of
-<code>printf</code> function so to instruct the compiler on how to
-execute that specific call. To prove this point, you can remove the
-first line and replace it with:
-<code>int printf(const char *restrict format, ...);</code> which is the
-prototype of the function we want to call.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> printf<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span><span class="dt">restrict</span> format<span class="op">,</span> <span class="op">...);</span></span>
+    <p>With a given compiler, you can tweak many compilation aspects.
+    For instance, <code>cc -O2 hello_world.c</code> tells the compiler
+    to optimize the generated executable. A more optimized version of
+    the executable is also slower to be generated and, if that does not
+    make much sense for small programs, it can output a much better
+    version of the program when a high enough level of complexity has
+    been reached.</p>
+    <p>With <a
+    href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a>
+    compiler, you can see that our simple program make use of
+    <code>puts</code> <a
+    href="https://en.wikipedia.org/wiki/System_call">syscall</a>,
+    however, this depends on the compiler itself and, often, with
+    different compilers, the line: <code>printf("Hello World\n");</code>
+    is compiled using <code>printf</code> syscall instead.</p>
+    <p>Using <code>-O2</code> flag can make the compiler use
+    <code>puts</code> as this syscall is faster than
+    <code>printf</code>. This is a simple, yet meaningful, example but
+    in such a small program it does make no difference in terms of
+    execution speed. The compiler is very good at improving written
+    programs if given enough time. While developing, though, a low
+    compilation time is often preferred.</p>
+    <blockquote>
+    <p>You can check the standard C library from the terminal using
+    <code>man</code> or <code>--help</code> flags. For example, you can
+    use <code>man 3 puts</code> or <code>man 3 printf</code> to check
+    documentation of both syscalls (3 makes sure to output the C library
+    description).</p>
+    </blockquote>
+    <h2 id="include-other-source-code">Include other source code</h2>
+    <p>In the very first line of our simple program, you can see a <a
+    href="https://en.wikipedia.org/wiki/Preprocessor">preprocessor</a>
+    <a
+    href="https://en.wikipedia.org/wiki/Directive_(programming)">directive</a>.
+    This line simply tells to the compiler that a file need to be
+    included into the program. The compiler, before the compilation,
+    take the content of the file and <em>paste</em> it at the location.
+    In this case, <code>&lt;stdio.h&gt;</code> declares the prototype of
+    <code>printf</code> function so to instruct the compiler on how to
+    execute that specific call. To prove this point, you can remove the
+    first line and replace it with:
+    <code>int printf(const char *restrict format, ...);</code> which is
+    the prototype of the function we want to call.</p>
+    <div class="sourceCode" id="cb5"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> printf<span class="op">(</span><span class="dt">const</span> <span class="dt">char</span> <span class="op">*</span><span class="dt">restrict</span> format<span class="op">,</span> <span class="op">...);</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><code>#include</code> can also be used to include other <em>C</em>
-files. In fact, you can move a single line to a different file and than
-compile a program that includes the file on the line you want it to be
-replaced.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+    <p><code>#include</code> can also be used to include other
+    <em>C</em> files. In fact, you can move a single line to a different
+    file and than compile a program that includes the file on the line
+    you want it to be replaced.</p>
+    <div class="sourceCode" id="cb6"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="pp">#include </span><span class="im">&quot;file.c&quot;</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>The generated assembly or machine code will be equivalent.</p>
-<h2 id="functions">Functions</h2>
-<p>This very simple program has a single function named
-<code>main</code>. A function has always a return type, an
-<em>optional</em> list of parameters, and a body. The signature of the
-function <code>main</code> has a return type specified as
-<code>int</code>—this means that the function must return an integer
-value.</p>
-<p>Parameters are defined inside the brackets of the function and they
-too have a specific type. It is also possible to define a function that
-does not require any parameter. This can be explicit, using
-<code>void</code> as the function <code>main</code> does, or implicit,
-by simply avoiding specifying any parameter:
-<code>int main() {}</code>.</p>
-<p>Functions can call other functions too!</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+    <p>The generated assembly or machine code will be equivalent.</p>
+    <h2 id="functions">Functions</h2>
+    <p>This very simple program has a single function named
+    <code>main</code>. A function has always a return type, an
+    <em>optional</em> list of parameters, and a body. The signature of
+    the function <code>main</code> has a return type specified as
+    <code>int</code>—this means that the function must return an integer
+    value.</p>
+    <p>Parameters are defined inside the brackets of the function and
+    they too have a specific type. It is also possible to define a
+    function that does not require any parameter. This can be explicit,
+    using <code>void</code> as the function <code>main</code> does, or
+    implicit, by simply avoiding specifying any parameter:
+    <code>int main() {}</code>.</p>
+    <p>Functions can call other functions too!</p>
+    <div class="sourceCode" id="cb7"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
@@ -202,23 +326,25 @@ by simply avoiding specifying any parameter:
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> sum<span class="op">(</span><span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">));</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>The function <code>main</code> is a special function, in fact, it is
-the only function that is automatically called by the program. Other
-functions must be explicitly called. This means that a valid <em>C</em>
-program must define the <code>main</code> function.</p>
-<h2 id="variables">Variables</h2>
-<p>Functions parameters are variables existing only during the function
-execution. There are variables which are not involved only in function
-calls but also have a meaning in the callee context or even in the whole
-program context.</p>
-<h3 id="scope">Scope</h3>
-<p>Variables can have different scope. In the previous example, the
-function <code>int sum(int a, int b)</code> has two variables as
-parameters having a local scope. When variables are local, they are
-valid only within the function context and have no meaning to other
-functions.</p>
-<p>To understand this concept, let’s consider the following program:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+    <p>The function <code>main</code> is a special function, in fact, it
+    is the only function that is automatically called by the program.
+    Other functions must be explicitly called. This means that a valid
+    <em>C</em> program must define the <code>main</code> function.</p>
+    <h2 id="variables">Variables</h2>
+    <p>Functions parameters are variables existing only during the
+    function execution. There are variables which are not involved only
+    in function calls but also have a meaning in the callee context or
+    even in the whole program context.</p>
+    <h3 id="scope">Scope</h3>
+    <p>Variables can have different scope. In the previous example, the
+    function <code>int sum(int a, int b)</code> has two variables as
+    parameters having a local scope. When variables are local, they are
+    valid only within the function context and have no meaning to other
+    functions.</p>
+    <p>To understand this concept, let’s consider the following
+    program:</p>
+    <div class="sourceCode" id="cb8"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sum<span class="op">(</span><span class="dt">int</span> a<span class="op">,</span> <span class="dt">int</span> b<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> a <span class="op">+</span> b<span class="op">;</span></span>
@@ -231,23 +357,24 @@ functions.</p>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;Hello World </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> sum<span class="op">(</span>a<span class="op">,</span> c<span class="op">));</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>This is a valid <em>C</em> program, equivalent to the previous, and,
-as you can see, the variable named <code>a</code> exists twice with the
-same name. This is possible because in both cases, the variable scope is
-local to the function itself and it’s removed after the function has
-returned its value.</p>
-<blockquote>
-<p>The function <code>main</code> has a return type but since it is
-automatically called by the program, the only one that can be interested
-in its value is the callee: the program executor. If executed from a
-shell, the program returns its value and can be shown with
-<code>./a.out; echo $?</code>. This is quite useful combined with the
-fact that <code>0</code> is equivalent to <code>true</code> in Unix
-shells.</p>
-</blockquote>
-<p>Variables can also have a global scope. A global variable is seen by
-every function and initialized only once.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+    <p>This is a valid <em>C</em> program, equivalent to the previous,
+    and, as you can see, the variable named <code>a</code> exists twice
+    with the same name. This is possible because in both cases, the
+    variable scope is local to the function itself and it’s removed
+    after the function has returned its value.</p>
+    <blockquote>
+    <p>The function <code>main</code> has a return type but since it is
+    automatically called by the program, the only one that can be
+    interested in its value is the callee: the program executor. If
+    executed from a shell, the program returns its value and can be
+    shown with <code>./a.out; echo $?</code>. This is quite useful
+    combined with the fact that <code>0</code> is equivalent to
+    <code>true</code> in Unix shells.</p>
+    </blockquote>
+    <p>Variables can also have a global scope. A global variable is seen
+    by every function and initialized only once.</p>
+    <div class="sourceCode" id="cb9"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -262,82 +389,91 @@ every function and initialized only once.</p>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>In such cases the value of <em>x</em> is incremented by one each time
-the function is called. Values of local variables can also be retained
-through multiple function calls if they are defined as static:
-<code>static int x = 0;</code>.</p>
-<p>It’s important to highlight that, in <em>C</em>, variables are passed
-<em>by value</em>. This means that whenever a function is called, it
-cannot modify any existing variable local to the callee but, for each of
-its parameters, a copy of the value is passed. To modify local variables
-with functions it is necessary to use <em>pointers</em> which will be
-described extensively in the next paragraph.</p>
-<h3 id="type">Type</h3>
-<p>We have seen variables having type <em>int</em>, but there are
-multiple primitive types that can define different kinds of data. For
-simplicity, a subset of common primitive types is shown in the following
-table, refer to the <a
-href="https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types">standard
-documentation</a> to explore all different existing types.</p>
-<table style="width:100%;">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 26%" />
-<col style="width: 47%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th style="text-align: center;">Size (b)</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>int</td>
-<td style="text-align: center;">32</td>
-<td>Signed numbers</td>
-</tr>
-<tr class="even">
-<td>float</td>
-<td style="text-align: center;">32</td>
-<td>Floating point numbers</td>
-</tr>
-<tr class="odd">
-<td>double</td>
-<td style="text-align: center;">64</td>
-<td>High precision floating point numbers</td>
-</tr>
-<tr class="even">
-<td>char</td>
-<td style="text-align: center;">8</td>
-<td>Characters</td>
-</tr>
-<tr class="odd">
-<td>short</td>
-<td style="text-align: center;">16</td>
-<td>Shorter signed numbers</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>All size reported are not guaranteed by C specification, it mainly
-depends on architectures.</p>
-</blockquote>
-<p>In many cases, types are automatically promoted to a higher size type
-to easily handle similar cases. For instance, <code>printf</code> will
-promote <code>char</code> or <code>short</code> values to
-<code>int</code> enabling developers to simplify the usage of the
-function.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">short</span> s <span class="op">=</span> <span class="dv">400</span><span class="op">;</span></span>
+    <p>In such cases the value of <em>x</em> is incremented by one each
+    time the function is called. Values of local variables can also be
+    retained through multiple function calls if they are defined as
+    static: <code>static int x = 0;</code>.</p>
+    <p>It’s important to highlight that, in <em>C</em>, variables are
+    passed <em>by value</em>. This means that whenever a function is
+    called, it cannot modify any existing variable local to the callee
+    but, for each of its parameters, a copy of the value is passed. To
+    modify local variables with functions it is necessary to use
+    <em>pointers</em> which will be described extensively in the next
+    paragraph.</p>
+    <h3 id="type">Type</h3>
+    <p>We have seen variables having type <em>int</em>, but there are
+    multiple primitive types that can define different kinds of data.
+    For simplicity, a subset of common primitive types is shown in the
+    following table, refer to the <a
+    href="https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types">standard
+    documentation</a> to explore all different existing types.</p>
+    <table style="width:100%;">
+    <colgroup>
+    <col style="width: 25%" />
+    <col style="width: 26%" />
+    <col style="width: 47%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Type</th>
+    <th style="text-align: center;">Common size (b)</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>int</td>
+    <td style="text-align: center;">32</td>
+    <td>Signed integer numbers</td>
+    </tr>
+    <tr class="even">
+    <td>float</td>
+    <td style="text-align: center;">32</td>
+    <td>Floating point numbers</td>
+    </tr>
+    <tr class="odd">
+    <td>double</td>
+    <td style="text-align: center;">64</td>
+    <td>High precision floating point numbers</td>
+    </tr>
+    <tr class="even">
+    <td>char</td>
+    <td style="text-align: center;">8</td>
+    <td>Characters</td>
+    </tr>
+    <tr class="odd">
+    <td>short</td>
+    <td style="text-align: center;">16</td>
+    <td>Shorter signed integer numbers</td>
+    </tr>
+    </tbody>
+    </table>
+    <blockquote>
+    <p>All size reported are not guaranteed by C specification, it
+    mainly depends on architectures.</p>
+    </blockquote>
+    <p>In many cases, types are automatically <em>promoted</em> to a
+    higher size type to easily handle similar cases. For instance,
+    <code>printf</code> will promote <code>char</code> or
+    <code>short</code> values to <code>int</code> enabling developers to
+    simplify the usage of the function.</p>
+    <div class="sourceCode" id="cb10"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">short</span> s <span class="op">=</span> <span class="dv">400</span><span class="op">;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// `s` is automatically converted.</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> s<span class="op">);</span></span></code></pre></div>
-<p>This happens with functions such as <code>printf</code>, which accept
-a variable number of parameters (variadic function), but also during
-expressions evaluations if necessary.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> c <span class="op">=</span> <span class="dv">127</span><span class="op">;</span></span>
+    <p>This happens with functions such as <code>printf</code>, which
+    accept a variable number of parameters (variadic function), but also
+    during expressions evaluations if necessary.</p>
+    <div class="sourceCode" id="cb11"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> c <span class="op">=</span> <span class="dv">127</span><span class="op">;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Before evaluation, `c` is promoted to int.</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> i <span class="op">=</span> c <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> i<span class="op">);</span></span></code></pre></div>
+    <p>Since the size of types is variable and depends on the
+    architecture, there is a specific function that returns the size of
+    a specific variable: <code>sizeof(var)</code>.</p>
+  </main>
+</body>
+</html>

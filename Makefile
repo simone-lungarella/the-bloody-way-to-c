@@ -1,8 +1,8 @@
 # Variables
-MD_FILE := the-bloody-way-to-c.md
+MD_FILE := resources/the-bloody-way-to-c.md
 HTML_OUT := docs/index.html
 PDF_OUT := The\ Bloody\ Way\ To\ C.pdf
-TEMPLATE := template.html
+TEMPLATE := resources/template.html
 
 # Default target: build both HTML and PDF
 all: html pdf

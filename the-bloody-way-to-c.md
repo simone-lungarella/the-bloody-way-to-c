@@ -266,19 +266,19 @@ It's important to highlight that, in _C_, variables are passed _by value_. This 
 ### Type
 We have seen variables having type _int_, but there are multiple primitive types that can define different kinds of data. For simplicity, a subset of common primitive types is shown in the following table, refer to the [standard documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types) to explore all different existing types.
 
-| Type                 | Size (b)              | Description                           |
+| Type                 | Common size (b)       | Description                           |
 | -------------------- | :-------------------: | ------------------------------------- |
-| int                  | 32                    | Signed numbers                        |
+| int                  | 32                    | Signed integer numbers                |
 | float                | 32                    | Floating point numbers                |
 | double               | 64                    | High precision floating point numbers |
 | char                 | 8                     | Characters                            |
-| short                | 16                    | Shorter signed numbers                |
+| short                | 16                    | Shorter signed integer numbers        |
 
 > All size reported are not guaranteed by C specification, it mainly depends on architectures.
 
 \vspace{0.5cm}
 
-In many cases, types are automatically promoted to a higher size type to easily handle similar cases. For instance, `printf` will promote `char` or `short` values to `int` enabling developers to simplify the usage of the function.
+In many cases, types are automatically _promoted_ to a higher size type to easily handle similar cases. For instance, `printf` will promote `char` or `short` values to `int` enabling developers to simplify the usage of the function.
 
 
 ```c
@@ -298,3 +298,5 @@ This happens with functions such as `printf`, which accept a variable number of 
   int i = c + 1;
   printf("%d\n", i);
 ```
+
+Since the size of types is variable and depends on the architecture, there is a specific function that returns the size of a specific variable: `sizeof(var)`.

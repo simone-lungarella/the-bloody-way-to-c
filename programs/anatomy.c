@@ -1,6 +1,7 @@
 /* #include tells to the compiler to copy the content of other files. 
  * In this case the copied files has the signature of `printf` which is required 
  * from the compiler since the main function uses it. */
+#include <stdint.h>
 #include <stdio.h>
 
 /* Sums two parameters which are variables of type `int`.
@@ -41,6 +42,19 @@ int main(void) {
    * types are usually promoted to a higher size compatible variant. */
   int new_val = val + 1;
   printf("%d\n", new_val);
+
+  short s = 2000;
+  long l = 10;
+
+  /* Since the size of types depends on CPU architecture, 
+   * `sizeof` can be used to get the real size in the specific architecture. */
+  printf("Size of variable: %lu\n", sizeof(l));
+
+  /* There are many types in C, some of them are related to the specific architecture
+   * and guarantee to be usable in some context.
+   * The following types guarantee to allocate enough space for a memory address. */
+  intptr_t x;
+  uintptr_t y;
 
   /* Each function must return a value if defined in its signature. */
   return 0;

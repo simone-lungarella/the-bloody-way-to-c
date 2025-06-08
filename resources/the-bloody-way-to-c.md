@@ -4,6 +4,8 @@ subtitle: "A Brutalist Approach to C Language—No Boilerplate"
 author: "Simone Lungarella (simonelungarella@gmail.com)"
 date: "2025-05-11"
 lang: "en-US"
+mainfont: "Linux Libertine O"
+monofont: "JetBrains Mono"
 pdfmetadata:
   Title: "The Bloody Way to C"
   Author: "Simone Lungarella"
@@ -12,11 +14,11 @@ pdfmetadata:
   Language: "en-US"
 
 geometry: margin=1in
-fontfamily: lmodern
 toc: true
 toc-depth: 2
 numbersections: true
 colorlinks: true
+pdf-engine: lualatex
 header-includes:
   - \usepackage{etoolbox}
   - \AtBeginEnvironment{Highlighting}{\vspace{1em}}
@@ -40,8 +42,8 @@ header-includes:
       pdfauthor={Simone Lungarella},
       pdfsubject={Low-level C Programming},
       pdfkeywords={C, systems programming},
-      pdfcreator={Pandoc + XeLaTeX},
-      pdfproducer={XeLaTeX}
+      pdfcreator={Pandoc + LuaLaTeX},
+      pdfproducer={LuaLaTeX}
     }
 ---
 
@@ -55,7 +57,7 @@ It will be consistently updated and improved until completion and kept—as much
 
 To understand every aspect of *C*, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will hopefully remain valid.
 
-I strongly believe that the best way to develop software is by using *CLI* and lightweight text editors such as `neovim` or `vim`. Whenever is possible I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
+I strongly believe that the best way to develop software is by using *CLI* and lightweight text editors such as `neovim` or `vim`. Whenever it is possible, I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
 
 \newpage
 
@@ -262,7 +264,7 @@ In such cases the value of _x_ is incremented by one each time the function is c
 It's important to highlight that, in _C_, variables are passed _by value_. This means that whenever a function is called, it cannot modify any existing variable local to the callee but, for each of its parameters, a copy of the value is passed. To modify local variables with functions it is necessary to use _pointers_ which will be described extensively in the next paragraph.
 
 ### Type
-We have seen variables having type _int_, but there are multiple primitive types that can define different kinds of data. For simplicity, a subset of common primitive types is shown in the following table, refer to the [standard documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types) to explore all different existing types.
+We have seen variables having type _int_, but there are multiple primitive types that can define different kinds of data. For simplicity, a subset of common primitive types is shown into the following table, refer to the [standard documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types) to explore all different existing types.
 
 | Type                 | Common size (b)       | Description                           |
 | -------------------- | :-------------------: | ------------------------------------- |

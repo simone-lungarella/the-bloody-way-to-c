@@ -49,9 +49,13 @@ header-includes:
 
 # Preface {-}
 
-This book is a humble attempt to capture every piece of information given by Salvatore Sanfilippo—aka [antirez](https://github.com/antirez)—in his C course presented on YouTube.
+This e-book is a *humble* attempt to describe _C_ language while actively trying to learn it. I enjoy writing code and technical documentation and I decided to produce this guide under [MIT licence](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/LICENSE). It is *not* intended to be fully comprehensive and complete, it only contains what I've learned and follows my very personal style.
 
-Each chapter is written following each lesson and, if needed, integrated with personal consideration. Each snippet is written and tested by me and may vary from what is stated in the lessons.
+It will be consistently updated and improved until completion and kept—as much as possible—accessible.
+
+To understand every aspect of *C*, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will hopefully remain valid.
+
+I strongly believe that the best way to develop software is by using *CLI* and lightweight text editors such as `neovim` or `vim`. Whenever is possible I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
 
 \newpage
 
@@ -67,12 +71,6 @@ C was invented in [Bell Labs](https://it.wikipedia.org/wiki/Bell_Laboratories) w
 - floating point numbers: float;
 
 In that sense, *C* language can be visualized as *B* with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offsets of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, imagine in simple terms complex topics and algorithms.
-
-## The CLI, as a lifestyle {-}
-
-To understand every aspect of *C*, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will remain valid.
-
-I strongly believe that the best way to develop software is by using *CLI* and lightweight text editors such as `neovim` or `vim`. Whenever is possible I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
 
 \newpage
 

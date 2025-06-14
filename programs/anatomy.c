@@ -56,6 +56,12 @@ int main(void) {
   intptr_t x;
   uintptr_t y;
 
+  /* Arrays can store multiple values of the same type. */
+  int array[5] = {1, 2, 3, 4, 5};
+  /* Arrays of chars are defined string and have a special way of initialization.
+   * Strings have the null terminator `\0` that tells the program when the array of chars ends. */
+  char string[] = "Hello";
+
   /* Each function must return a value if defined in its signature. */
   return 0;
 }

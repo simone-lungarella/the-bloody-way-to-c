@@ -51,7 +51,7 @@ header-includes:
 
 # Preface {-}
 
-This e-book is a *humble* attempt to describe _C_ language while actively trying to learn it. I enjoy writing code and technical documentation and I decided to produce this guide under [MIT licence](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/LICENSE). It is *not* intended to be fully comprehensive and complete, it only contains what I've learned and follows my very personal style.
+This e-book is a *humble* attempt to describe *C* language while actively trying to learn it. I enjoy writing code and technical documentation and I decided to produce this guide under [MIT licence](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/LICENSE). It is *not* intended to be fully comprehensive and complete, it only contains what I've learned and follows my very personal style.
 
 It will be consistently updated and improved until completion and kept—as much as possible—accessible.
 
@@ -299,3 +299,25 @@ This happens with functions such as `printf`, which accept a variable number of 
 ```
 
 Since the size of types is variable and depends on the architecture, there is a specific function that returns the size of a specific variable: `sizeof(var)`.
+
+Variables can represent a single value or a collection of values. To define a variable and store multiple values of the same type, _C_ provides *Arrays*.
+
+```c
+  int array[5] = {1, 2, 3, 4, 5};
+
+  printf("%d\n", array[0]);
+```
+
+Arrays can store multiple values in different positions and track a contiguous block of memory. To access value in a specific position you can use each index starting from `0` up to `n-1`.
+
+Arrays of characters are named _string_, and since they are very common, there is a simpler way to initialize them:
+
+```c
+  char phrase[] = "Hello World";
+
+  printf("%s\n", phrase);
+```
+
+It is not mandatory to set the size of the array as the compiler will automatically do it by checking the its size. You can evaluate the size of a string too using: `sizeof(string)`.
+
+> You will notice that the size is always greater than the amount of character in the string. Strings always require the null terminator: `\0` that tells the program when the array ends.

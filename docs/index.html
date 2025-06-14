@@ -474,6 +474,32 @@
     <p>Since the size of types is variable and depends on the
     architecture, there is a specific function that returns the size of
     a specific variable: <code>sizeof(var)</code>.</p>
+    <p>Variables can represent a single value or a collection of values.
+    To define a variable and store multiple values of the same type,
+    <em>C</em> provides <em>Arrays</em>.</p>
+    <div class="sourceCode" id="cb12"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> array<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> array<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span></code></pre></div>
+    <p>Arrays can store multiple values in different positions and track
+    a contiguous block of memory. To access value in a specific position
+    you can use each index starting from <code>0</code> up to
+    <code>n-1</code>.</p>
+    <p>Arrays of characters are named <em>string</em>, and since they
+    are very common, there is a simpler way to initialize them:</p>
+    <div class="sourceCode" id="cb13"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> phrase<span class="op">[]</span> <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span><span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%s\n</span><span class="st">&quot;</span><span class="op">,</span> phrase<span class="op">);</span></span></code></pre></div>
+    <p>It is not mandatory to set the size of the array as the compiler
+    will automatically do it by checking the its size. You can evaluate
+    the size of a string too using: <code>sizeof(string)</code>.</p>
+    <blockquote>
+    <p>You will notice that the size is always greater than the amount
+    of character in the string. Strings always require the null
+    terminator: <code>\0</code> that tells the program when the array
+    ends.</p>
+    </blockquote>
   </main>
 </body>
 </html>

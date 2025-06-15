@@ -318,6 +318,6 @@ Arrays of characters are named _string_, and since they are very common, there i
   printf("%s\n", phrase);
 ```
 
-It is not mandatory to set the size of the array as the compiler will automatically do it by checking the its size. You can evaluate the size of a string too using: `sizeof(string)`.
+It is not mandatory to set the size of the array as the compiler will automatically do it by checking the its size. You can evaluate the size of a string too using: `sizeof(string)`, which is also evaluated at compile time.
 
-> You will notice that the size is always greater than the amount of character in the string. Strings always require the null terminator: `\0` that tells the program when the array ends.
+> You will notice that the size of strings, returned by `sizeof`, is always greater than the amount of character in the string. Strings always require the null terminator: `\0` that tells the program when the array ends and initializing a string using quotes automatically adds the null terminator.

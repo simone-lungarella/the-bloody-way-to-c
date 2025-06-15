@@ -1,4 +1,4 @@
-# ![Terminal block cursor](./resources/block_cursor_favicon.svg)  The Bloody Way to C
+# ![Terminal block cursor](./resources/logo.svg) The Bloody Way to C
 
 A **very** humble attempt to describe how to write software with C language while learning the language itself. By following [antirez](https://github.com/antirez) approach to C in his video lessons uploaded on [YouTube](https://www.youtube.com/@antirez), I keep track of each topic in this repository.
 

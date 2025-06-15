@@ -1,4 +1,4 @@
-# ![Terminal block cursor](./resources/logo.svg) The Bloody Way to C
+## ![Terminal block cursor](./resources/logo_readme.svg) The Bloody Way to C
 
 A **very** humble attempt to describe how to write software with C language while learning the language itself. By following [antirez](https://github.com/antirez) approach to C in his video lessons uploaded on [YouTube](https://www.youtube.com/@antirez), I keep track of each topic in this repository.
 
@@ -8,7 +8,7 @@ This challenge has the only goal to improve my ability to write technical docume
 
 The whole document is written to be converted in [PDF](https://it.wikipedia.org/wiki/Portable_Document_Format) using [pandoc](https://pandoc.org/) so any complex syntax will be avoided.
 
-## Attribution
+### Attribution
 
 - The Bloody Way To C  © 2025 is licensed under CC BY 4.0. To view a copy of this license, visit [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - All code is licensed under [MIT License](./LICENSE).

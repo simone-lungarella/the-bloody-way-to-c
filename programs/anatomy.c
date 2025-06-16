@@ -58,7 +58,7 @@ int main(void) {
 
   /* Arrays can store multiple values of the same type. */
   int array[5] = {1, 2, 3, 4, 5};
-  /* Arrays of chars are defined string and have a special way of initialization.
+  /* Arrays of chars are named "string" and have a special way of initialization.
    * Strings have the null terminator `\0` that tells the program when the array of chars ends. */
   char string[] = "Hello";
 

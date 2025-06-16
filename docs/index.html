@@ -116,9 +116,10 @@
 
   <main>
     <h1 class="unnumbered" id="preface">Preface</h1>
-    <p>This e-book is a <em>humble</em> attempt to describe <em>C</em>
-    language while actively trying to learn it. I enjoy writing code and
-    technical documentation and I decided to produce this guide under <a
+    <p>This e-book is a <strong>humble</strong> attempt to describe
+    <em>C</em> language while actively trying to learn it. I enjoy
+    writing code and technical documentation and I decided to produce
+    this guide under <a
     href="https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/LICENSE">MIT
     licence</a>. It is <em>not</em> intended to be fully comprehensive
     and complete, it only contains what I’ve learned and follows my very
@@ -146,15 +147,15 @@
     Thompson</a> was working on Unix. Following the idea that a good
     operating system should have had a high level compiled language.
     After abandoning the first attempt on creating a compiler for <a
-    href="https://it.wikipedia.org/wiki/Fortran"><code>Fortran</code></a>,
-    a smaller new language was created and named <a
-    href="https://en.wikipedia.org/wiki/B_(programming_language)"><code>B</code></a>.
-    <code>B</code> better fitted <a
+    href="https://it.wikipedia.org/wiki/Fortran">Fortran</a>, a smaller
+    new language was created and named <a
+    href="https://en.wikipedia.org/wiki/B_(programming_language)"><em>B</em></a>.
+    <em>B</em> better fitted <a
     href="https://en.wikipedia.org/wiki/PDP-11">P2P11</a> but was not
     enough to port Unix from Assembly. <a
-    href="https://en.wikipedia.org/wiki/C_(programming_language)"><code>C</code></a>
-    was created with a set of feature that were missing in
-    <code>B</code> and was a much better fit for the Unix system.</p>
+    href="https://en.wikipedia.org/wiki/C_(programming_language)"><em>C</em></a>
+    was created with a set of feature that were missing in <em>B</em>
+    and was a much better fit for the Unix system.</p>
     <p><em>C</em> was a better language mainly because its multiple
     distinct types:</p>
     <ul class="incremental">
@@ -173,8 +174,9 @@
     complex topics and algorithms.</p>
     <h1 id="anatomy-of-a-c-program">Anatomy of a C program</h1>
     <h2 id="execute-a-c-program">Execute a C program</h2>
-    <p><em>C</em> is a compiled language, this means you cannot execute
-    a file containing the main function. It requires to be compiled.</p>
+    <p><em>C</em> is a compiled language, this means that you cannot
+    execute a file containing the main function. It requires to be
+    compiled in an executable program.</p>
     <p>You can use: <code>cc</code> to compile a <em>C</em> program.
     <code>cc</code> is a Unix command that let you easily communicate
     with the compiler. You can use: <code>cc --version</code> to check
@@ -249,18 +251,17 @@
     <p>With <a
     href="https://en.wikipedia.org/wiki/GNU_Compiler_Collection">GCC</a>
     compiler, you can see that our simple program make use of
-    <code>puts</code> <a
+    <em>puts</em> <a
     href="https://en.wikipedia.org/wiki/System_call">syscall</a>,
     however, this depends on the compiler itself and, often, with
     different compilers, the line: <code>printf("Hello World\n");</code>
-    is compiled using <code>printf</code> syscall instead.</p>
+    is compiled using <em>printf</em> instead.</p>
     <p>Using <code>-O2</code> flag can make the compiler use
-    <code>puts</code> as this syscall is faster than
-    <code>printf</code>. This is a simple, yet meaningful, example but
-    in such a small program it does make no difference in terms of
-    execution speed. The compiler is very good at improving written
-    programs if given enough time. While developing, though, a low
-    compilation time is often preferred.</p>
+    <em>puts</em> as this syscall is faster than <em>printf</em>. This
+    is a simple, yet meaningful, example but in such a small program it
+    does make no difference in terms of execution speed. The compiler is
+    very good at improving written programs if given enough time. While
+    developing, though, a low compilation time is often preferred.</p>
     <blockquote>
     <p>You can check the standard C library from the terminal using
     <code>man</code> or <code>--help</code> flags. For example, you can
@@ -277,7 +278,7 @@
     included into the program. The compiler, before the compilation,
     take the content of the file and <em>paste</em> it at the location.
     In this case, <code>&lt;stdio.h&gt;</code> declares the prototype of
-    <code>printf</code> function so to instruct the compiler on how to
+    <em>printf</em> function so to instruct the compiler on how to
     execute that specific call. To prove this point, you can remove the
     first line and replace it with:
     <code>int printf(const char *restrict format, ...);</code> which is
@@ -303,9 +304,9 @@
     <p>The generated assembly or machine code will be equivalent.</p>
     <h2 id="functions">Functions</h2>
     <p>This very simple program has a single function named
-    <code>main</code>. A function has always a return type, an
+    <em>main</em>. A function has always a return type, an
     <em>optional</em> list of parameters, and a body. The signature of
-    the function <code>main</code> has a return type specified as
+    the function <em>main</em> has a return type specified as
     <code>int</code>—this means that the function must return an integer
     value.</p>
     <p>Parameters are defined inside the brackets of the function and
@@ -329,7 +330,7 @@
     <p>The function <code>main</code> is a special function, in fact, it
     is the only function that is automatically called by the program.
     Other functions must be explicitly called. This means that a valid
-    <em>C</em> program must define the <code>main</code> function.</p>
+    <em>C</em> program must define the <em>main</em> function.</p>
     <h2 id="variables">Variables</h2>
     <p>Functions parameters are variables existing only during the
     function execution. There are variables which are not involved only
@@ -389,17 +390,17 @@
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-    <p>In such cases the value of <em>x</em> is incremented by one each
-    time the function is called. Values of local variables can also be
-    retained through multiple function calls if they are defined as
+    <p>In such cases the value of <code>x</code> is incremented by one
+    each time the function is called. Values of local variables can also
+    be retained through multiple function calls if they are defined as
     static: <code>static int x = 0;</code>.</p>
     <p>It’s important to highlight that, in <em>C</em>, variables are
-    passed <em>by value</em>. This means that whenever a function is
-    called, it cannot modify any existing variable local to the callee
-    but, for each of its parameters, a copy of the value is passed. To
-    modify local variables with functions it is necessary to use
-    <em>pointers</em> which will be described extensively in the next
-    paragraph.</p>
+    passed <strong>by value</strong>. This means that whenever a
+    function is called, it cannot modify any existing variable local to
+    the callee but, for each of its parameters, a copy of the value is
+    passed. To modify local variables with functions it is necessary to
+    use <em>pointers</em> which will be described extensively in a
+    dedicated chapter.</p>
     <h3 id="type">Type</h3>
     <p>We have seen variables having type <em>int</em>, but there are
     multiple primitive types that can define different kinds of data.
@@ -476,7 +477,7 @@
     a specific variable: <code>sizeof(var)</code>.</p>
     <p>Variables can represent a single value or a collection of values.
     To define a variable and store multiple values of the same type,
-    <em>C</em> provides <em>Arrays</em>.</p>
+    <em>C</em> provides <strong>Arrays</strong>.</p>
     <div class="sourceCode" id="cb12"><pre
     class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> array<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -485,8 +486,8 @@
     a contiguous block of memory. To access value in a specific position
     you can use each index starting from <code>0</code> up to
     <code>n-1</code>.</p>
-    <p>Arrays of characters are named <em>string</em>, and since they
-    are very common, there is a simpler way to initialize them:</p>
+    <p>Arrays of characters are named <em>strings</em>, and—since they
+    are very common—there is a simpler way to initialize them:</p>
     <div class="sourceCode" id="cb13"><pre
     class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  <span class="dt">char</span> phrase<span class="op">[]</span> <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span><span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>

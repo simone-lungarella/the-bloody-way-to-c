@@ -51,27 +51,27 @@ header-includes:
 
 # Preface {-}
 
-This e-book is a *humble* attempt to describe *C* language while actively trying to learn it. I enjoy writing code and technical documentation and I decided to produce this guide under [MIT licence](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/LICENSE). It is *not* intended to be fully comprehensive and complete, it only contains what I've learned and follows my very personal style.
+This e-book is a **humble** attempt to describe _C_ language while actively trying to learn it. I enjoy writing code and technical documentation and I decided to produce this guide under [MIT licence](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/LICENSE). It is *not* intended to be fully comprehensive and complete, it only contains what I've learned and follows my very personal style.
 
 It will be consistently updated and improved until completion and kept—as much as possible—accessible.
 
-To understand every aspect of *C*, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will hopefully remain valid.
+To understand every aspect of _C_, many tools will be used and all examples will refer to [CLI](https://en.wikipedia.org/wiki/Command-line_interface) commands. I will be using [Neovim](https://neovim.io/) as text editor and operate on a Linux machine. The output of commands and all examples may differ from machine to machine but the concepts will hopefully remain valid.
 
-I strongly believe that the best way to develop software is by using *CLI* and lightweight text editors such as `neovim` or `vim`. Whenever it is possible, I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
+I strongly believe that the best way to develop software is by using _CLI_ and lightweight text editors such as `neovim` or `vim`. Whenever it is possible, I will avoid using browsers to search for documentation by preferring usage of `man` directly into the terminal. This will keep low the friction and avoid the necessity to leave the home row of my keyboard.
 
 \newpage
 
 # Introduction {-}
 
-C was invented in [Bell Labs](https://it.wikipedia.org/wiki/Bell_Laboratories) when [Ken Thompson](https://it.wikipedia.org/wiki/Ken_Thompson) was working on Unix. Following the idea that a good operating system should have had a high level compiled language. After abandoning the first attempt on creating a compiler for [`Fortran`](https://it.wikipedia.org/wiki/Fortran), a smaller new language was created and named [`B`](https://en.wikipedia.org/wiki/B_(programming_language)). `B` better fitted [P2P11](https://en.wikipedia.org/wiki/PDP-11) but was not enough to port Unix from Assembly. [`C`](https://en.wikipedia.org/wiki/C_(programming_language)) was created with a set of feature that were missing in `B` and was a much better fit for the Unix system.
+C was invented in [Bell Labs](https://it.wikipedia.org/wiki/Bell_Laboratories) when [Ken Thompson](https://it.wikipedia.org/wiki/Ken_Thompson) was working on Unix. Following the idea that a good operating system should have had a high level compiled language. After abandoning the first attempt on creating a compiler for [Fortran](https://it.wikipedia.org/wiki/Fortran), a smaller new language was created and named [_B_](https://en.wikipedia.org/wiki/B_(programming_language)). _B_ better fitted [P2P11](https://en.wikipedia.org/wiki/PDP-11) but was not enough to port Unix from Assembly. [_C_](https://en.wikipedia.org/wiki/C_(programming_language)) was created with a set of feature that were missing in _B_ and was a much better fit for the Unix system.
 
-*C* was a better language mainly because its multiple distinct types:
+_C_ was a better language mainly because its multiple distinct types:
 
 - pointers;
 - integer;
 - floating point numbers: float;
 
-In that sense, *C* language can be visualized as *B* with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offsets of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, imagine in simple terms complex topics and algorithms.
+In that sense, _C_ language can be visualized as _B_ with types where all types can also be imagined as integers since pointers—in very simple terms—are integers and so are structures. In fact, structures are a set of integers representing offsets of each field position in memory and values of the very same fields. This simplicity can be considered the strength of the language as it can be easily picked up by new developers, layered to build a powerful abstraction and, with that, imagine in simple terms complex topics and algorithms.
 
 \newpage
 
@@ -79,9 +79,9 @@ In that sense, *C* language can be visualized as *B* with types where all types 
 
 ## Execute a C program
 
-*C* is a compiled language, this means you cannot execute a file containing the main function. It requires to be compiled.
+_C_ is a compiled language, this means that you cannot execute a file containing the main function. It requires to be compiled in an executable program.
 
-You can use: `cc` to compile a *C* program. `cc` is a Unix command that let you easily communicate with the compiler. You can use: `cc --version` to check what compiler does it use.
+You can use: `cc` to compile a _C_ program. `cc` is a Unix command that let you easily communicate with the compiler. You can use: `cc --version` to check what compiler does it use.
 
 ```txt
 cc (GCC) 14.2.1 20240912 (Red Hat 14.2.1-3)
@@ -91,7 +91,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 ```
 
 
-Let's consider the following simple *C* program contained in a file named—for instance—*hello_world.c* (how original):
+Let's consider the following simple _C_ program contained in a file named—for instance—_hello_world.c_ (how original):
 
 ```c
 #include <stdio.h>
@@ -104,7 +104,7 @@ int main(void) {
 
 You can use: `cc hello_world.c` to compile it to an executable program.
 
-The compiler generates an executable binary file named: *a.out*. This file is executable and runs your program. You can use: `file a.out` to check information about the generated file.
+The compiler generates an executable binary file named: _a.out_. This file is executable and runs your program. You can use: `file a.out` to check information about the generated file.
 
 ```txt
 ./a.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, \
@@ -151,16 +151,16 @@ main:
 
 With a given compiler, you can tweak many compilation aspects. For instance, `cc -O2 hello_world.c` tells the compiler to optimize the generated executable. A more optimized version of the executable is also slower to be generated and, if that does not make much sense for small programs, it can output a much better version of the program when a high enough level of complexity has been reached.
 
-With [GCC](https://en.wikipedia.org/wiki/GNU_Compiler_Collection) compiler, you can see that our simple program make use of `puts` [syscall](https://en.wikipedia.org/wiki/System_call), however, this depends on the compiler itself and, often, with different compilers, the line: `printf("Hello World\n");` is compiled using `printf` syscall instead.
+With [GCC](https://en.wikipedia.org/wiki/GNU_Compiler_Collection) compiler, you can see that our simple program make use of _puts_ [syscall](https://en.wikipedia.org/wiki/System_call), however, this depends on the compiler itself and, often, with different compilers, the line: `printf("Hello World\n");` is compiled using _printf_ instead.
 
-Using `-O2` flag can make the compiler use `puts` as this syscall is faster than `printf`. This is a simple, yet meaningful, example but in such a small program it does make no difference in terms of execution speed. The compiler is very good at improving written programs if given enough time. While developing, though, a low compilation time is often preferred.
+Using `-O2` flag can make the compiler use _puts_ as this syscall is faster than _printf_. This is a simple, yet meaningful, example but in such a small program it does make no difference in terms of execution speed. The compiler is very good at improving written programs if given enough time. While developing, though, a low compilation time is often preferred.
 
 > You can check the standard C library from the terminal using `man` or `--help` flags. For example, you can use `man 3 puts` or `man 3 printf` to check documentation of both syscalls (3 makes sure to output the C library description).
 
 \newpage
 
 ## Include other source code
-In the very first line of our simple program, you can see a [preprocessor](https://en.wikipedia.org/wiki/Preprocessor) [directive](https://en.wikipedia.org/wiki/Directive_(programming)). This line simply tells to the compiler that a file need to be included into the program. The compiler, before the compilation, take the content of the file and _paste_ it at the location. In this case, `<stdio.h>` declares the prototype of `printf` function so to instruct the compiler on how to execute that specific call. To prove this point, you can remove the first line and replace it with: `int printf(const char *restrict format, ...);` which is the prototype of the function we want to call.
+In the very first line of our simple program, you can see a [preprocessor](https://en.wikipedia.org/wiki/Preprocessor) [directive](https://en.wikipedia.org/wiki/Directive_(programming)). This line simply tells to the compiler that a file need to be included into the program. The compiler, before the compilation, take the content of the file and _paste_ it at the location. In this case, `<stdio.h>` declares the prototype of _printf_ function so to instruct the compiler on how to execute that specific call. To prove this point, you can remove the first line and replace it with: `int printf(const char *restrict format, ...);` which is the prototype of the function we want to call.
 
 ```c
 int printf(const char *restrict format, ...);
@@ -171,7 +171,7 @@ int main(void) {
 }
 ```
 
-`#include` can also be used to include other *C* files. In fact, you can move a single line to a different file and than compile a program that includes the file on the line you want it to be replaced.
+`#include` can also be used to include other _C_ files. In fact, you can move a single line to a different file and than compile a program that includes the file on the line you want it to be replaced.
 
 ```c
 #include <stdio.h>
@@ -185,7 +185,7 @@ int main(void) {
 The generated assembly or machine code will be equivalent.
 
 ## Functions
-This very simple program has a single function named `main`. A function has always a return type, an _optional_ list of parameters, and a body. The signature of the function `main` has a return type specified as `int`—this means that the function must return an integer value. 
+This very simple program has a single function named _main_. A function has always a return type, an _optional_ list of parameters, and a body. The signature of the function _main_ has a return type specified as `int`—this means that the function must return an integer value. 
 
 Parameters are defined inside the brackets of the function and they too have a specific type. It is also possible to define a function that does not require any parameter. This can be explicit, using `void` as the function `main` does, or implicit, by simply avoiding specifying any parameter: `int main() {}`.
 
@@ -204,7 +204,7 @@ int main(void) {
 }
 ```
 
-The function `main` is a special function, in fact, it is the only function that is automatically called by the program. Other functions must be explicitly called. This means that a valid *C* program must define the `main` function.
+The function `main` is a special function, in fact, it is the only function that is automatically called by the program. Other functions must be explicitly called. This means that a valid _C_ program must define the _main_ function.
 
 ## Variables
 Functions parameters are variables existing only during the function execution. There are variables which are not involved only in function calls but also have a meaning in the callee context or even in the whole program context.
@@ -230,7 +230,7 @@ int main(void) {
 }
 ```
 
-This is a valid *C* program, equivalent to the previous, and, as you can see, the variable named `a` exists twice with the same name. This is possible because in both cases, the variable scope is local to the function itself and it's removed after the function has returned its value.
+This is a valid _C_ program, equivalent to the previous, and, as you can see, the variable named `a` exists twice with the same name. This is possible because in both cases, the variable scope is local to the function itself and it's removed after the function has returned its value.
 
 \vspace{0.5cm}
 
@@ -258,9 +258,9 @@ int main(void) {
 }
 ```
 
-In such cases the value of _x_ is incremented by one each time the function is called. Values of local variables can also be retained through multiple function calls if they are defined as static: `static int x = 0;`.
+In such cases the value of `x` is incremented by one each time the function is called. Values of local variables can also be retained through multiple function calls if they are defined as static: `static int x = 0;`.
 
-It's important to highlight that, in _C_, variables are passed _by value_. This means that whenever a function is called, it cannot modify any existing variable local to the callee but, for each of its parameters, a copy of the value is passed. To modify local variables with functions it is necessary to use _pointers_ which will be described extensively in the next paragraph.
+It's important to highlight that, in _C_, variables are passed **by value**. This means that whenever a function is called, it cannot modify any existing variable local to the callee but, for each of its parameters, a copy of the value is passed. To modify local variables with functions it is necessary to use _pointers_ which will be described extensively in a dedicated chapter.
 
 ### Type
 We have seen variables having type _int_, but there are multiple primitive types that can define different kinds of data. For simplicity, a subset of common primitive types is shown into the following table, refer to the [standard documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types) to explore all different existing types.
@@ -300,7 +300,7 @@ This happens with functions such as `printf`, which accept a variable number of 
 
 Since the size of types is variable and depends on the architecture, there is a specific function that returns the size of a specific variable: `sizeof(var)`.
 
-Variables can represent a single value or a collection of values. To define a variable and store multiple values of the same type, _C_ provides *Arrays*.
+Variables can represent a single value or a collection of values. To define a variable and store multiple values of the same type, _C_ provides **Arrays**.
 
 ```c
   int array[5] = {1, 2, 3, 4, 5};
@@ -310,7 +310,7 @@ Variables can represent a single value or a collection of values. To define a va
 
 Arrays can store multiple values in different positions and track a contiguous block of memory. To access value in a specific position you can use each index starting from `0` up to `n-1`.
 
-Arrays of characters are named _string_, and since they are very common, there is a simpler way to initialize them:
+Arrays of characters are named _strings_, and—since they are very common—there is a simpler way to initialize them:
 
 ```c
   char phrase[] = "Hello World";

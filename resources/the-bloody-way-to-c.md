@@ -184,6 +184,8 @@ int main(void) {
 
 The generated assembly or machine code will be equivalent.
 
+\newpage
+
 ## Functions
 This very simple program has a single function named _main_. A function has always a return type, an _optional_ list of parameters, and a body. The signature of the function _main_ has a return type specified as `int`—this means that the function must return an integer value. 
 
@@ -205,6 +207,8 @@ int main(void) {
 ```
 
 The function `main` is a special function, in fact, it is the only function that is automatically called by the program. Other functions must be explicitly called. This means that a valid _C_ program must define the _main_ function.
+
+\newpage
 
 ## Variables
 Functions parameters are variables existing only during the function execution. There are variables which are not involved only in function calls but also have a meaning in the callee context or even in the whole program context.
@@ -321,3 +325,115 @@ Arrays of characters are named _strings_, and—since they are very common—the
 It is not mandatory to set the size of the array as the compiler will automatically do it by checking the its size. You can evaluate the size of a string too using: `sizeof(string)`, which is also evaluated at compile time.
 
 > You will notice that the size of strings, returned by `sizeof`, is always greater than the amount of character in the string. Strings always require the null terminator: `\0` that tells the program when the array ends and initializing a string using quotes automatically adds the null terminator.
+
+\newpage
+
+## Code blocks
+
+Code blocks are blocks delimited by brackets that can be part of functions. Each function has at least one code block but can have more. Variables declared in a specific block have a local meaning and occupy a different part in memory.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int i = 5;
+
+  {
+    int i = 3;
+
+    // i (4 bytes) is stored at 0x7fff7cae44b8
+    printf("i (%zu bytes) is stored at %p\n", sizeof(i), &i);
+  }
+
+  // i (4 bytes) is stored at 0x7fff7cae44bc
+  printf("i (%zu bytes) is stored at %p\n", sizeof(i), &i);
+}
+```
+
+> `&i` returns the memory address where the variable is stored, more about _pointers_ in the following chapters.
+
+This simple program will show how the two variables, having the same name, will be stored in two consecutive memory blocks that differ by exactly 4 bytes (from 0x[...]8 to 0x[...]c).
+
+### Conditional code blocks
+
+Often, the linear execution of a program needs to be interrupted to take a direction based on a specific condition. Conditional code blocks are blocks of code executed only if a specific requirement is satisfied.
+
+The keyword `if` defines a conditional block and the condition that needs to be met:
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int i = 5;
+
+  if (i> 3) {
+    printf("Value %d is greater than 3\n", i);
+  } else {
+    printf("Value %d is not greater than 3\n", i);
+  }
+}
+```
+
+Conditional blocks are optionally enhanced with `else` or multiple `else if` constructs that build up the logic based on multiple different conditions.
+
+> When conditional code blocks are constituted by a single statement, brackets are not optional: `if (i > 0) printf(i);`.
+
+\newpage
+
+## Loops
+
+To be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), a language must have some kind of looping logic. _C_ has many way to iterate the execution of a code block: `for`, `while`, `do-while`. Loops let the program jump at the start of a code block for multiple iteration until a condition is not anymore met. A way to achieve the same result is by using the keyword `goto`.
+
+The keyword `goto` interrupt the program execution and start from a specified _label_.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int i = 0;
+
+again:
+  printf("%d", i);
+  i++;
+  if (i < 10) goto again;
+}
+```
+
+In the example, when the condition is met, the instruction `goto` make the program jump back to the line under the specified label.
+
+The logic to iterate a code block or a set of instruction can be also written by using a _while loop_.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int i = 0;
+
+  while(i < 10) {
+    printf("%d", i);
+    i++;
+  }
+}
+```
+
+### Recursion
+
+Another way to execute multiple times a specific code block, is by using recursion. We talk about recursion when a function call itself.
+
+
+```c
+#include <stdio.h>
+
+void count(int start, int end) {
+  if (start > end) return;
+  printf("%d\n", start);
+  count(start + 1, end);
+}
+
+int main(void) {
+  count(0, 9);
+  return 0;
+}
+```
+
+Calling multiple time the same functions is equivalent to have multiple code blocks and—as said—each code block instantiate its variables in different memory addresses. This means that recursion, by instantiating multiple time the same variables, uses more memory than a simple while loop.

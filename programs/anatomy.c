@@ -23,6 +23,13 @@ void incr(void) {
   y = y + 1;
 }
 
+/* Recursive functions are functions that call themselves. */
+void count(int start, int end) {
+  if (start > end) return;
+  printf("%d\n", start);
+  count(start + 1, end);
+}
+
 /* The main function is automatically called when the program start. */
 int main(void) {
   /* These variables have a local scope, can have the same name of other function's local variables. */
@@ -61,6 +68,20 @@ int main(void) {
   /* Arrays of chars are named "string" and have a special way of initialization.
    * Strings have the null terminator `\0` that tells the program when the array of chars ends. */
   char string[] = "Hello";
+
+  /* Conditional blocks are executed only when a specific condition is met. */
+  if (s > 2500) {
+    printf("Variable %d is greater than 2500", s);
+  } else {
+    printf("Variable %d is not greater than 2500", s);
+  }
+
+  /* To iterate over the same code block, there are multiple ways. One of the is the `while loop`.
+   * This code block will be executed multiple time, until the condition is not met anymore. */
+  while(a > 0) {
+    printf("");
+    a--;
+  }
 
   /* Each function must return a value if defined in its signature. */
   return 0;

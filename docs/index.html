@@ -506,9 +506,9 @@
     </blockquote>
     <h2 id="code-blocks">Code blocks</h2>
     <p>Code blocks are blocks delimited by brackets that can be part of
-    functions. Each function has at least one code block but can have
-    more. Variables declared in a specific block have a local meaning
-    and occupy a different part in memory.</p>
+    functions. Each function has at least one code block. Variables
+    declared in a specific block have a local meaning and occupy a
+    different memory block.</p>
     <div class="sourceCode" id="cb14"><pre
     class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -518,12 +518,12 @@
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// i (4 bytes) is stored at 0x7fff7cae44b8</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;i (</span><span class="sc">%zu</span><span class="st"> bytes) is stored at </span><span class="sc">%p\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>i<span class="op">),</span> <span class="op">&amp;</span>i<span class="op">);</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// (4 bytes) stored at 0x7fff7cae44b8</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;(</span><span class="sc">%zu</span><span class="st"> bytes) stored at </span><span class="sc">%p\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>i<span class="op">),</span> <span class="op">&amp;</span>i<span class="op">);</span></span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// i (4 bytes) is stored at 0x7fff7cae44bc</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;i (</span><span class="sc">%zu</span><span class="st"> bytes) is stored at </span><span class="sc">%p\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>i<span class="op">),</span> <span class="op">&amp;</span>i<span class="op">);</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// (4 bytes) stored at 0x7fff7cae44bc</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  printf<span class="op">(</span><span class="st">&quot;(</span><span class="sc">%zu</span><span class="st"> bytes) stored at </span><span class="sc">%p\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>i<span class="op">),</span> <span class="op">&amp;</span>i<span class="op">);</span></span>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
     <blockquote>
     <p><code>&amp;i</code> returns the memory address where the variable
@@ -539,7 +539,7 @@
     blocks are blocks of code executed only if a specific requirement is
     satisfied.</p>
     <p>The keyword <code>if</code> defines a conditional block and the
-    condition that needs to be met:</p>
+    condition that needs to be met for the execution:</p>
     <div class="sourceCode" id="cb15"><pre
     class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -557,7 +557,7 @@
     based on multiple different conditions.</p>
     <blockquote>
     <p>When conditional code blocks are constituted by a single
-    statement, brackets are not optional:
+    statement, brackets are optional:
     <code>if (i &gt; 0) printf(i);</code>.</p>
     </blockquote>
     <h2 id="loops">Loops</h2>
@@ -566,9 +566,9 @@
     a language must have some kind of looping logic. <em>C</em> has many
     way to iterate the execution of a code block: <code>for</code>,
     <code>while</code>, <code>do-while</code>. Loops let the program
-    jump at the start of a code block for multiple iteration until a
-    condition is not anymore met. A way to achieve the same result is by
-    using the keyword <code>goto</code>.</p>
+    jump at the start of a code block for multiple iteration each time
+    the condition is met. A way to achieve the same result is by using
+    the keyword <code>goto</code>.</p>
     <p>The keyword <code>goto</code> interrupt the program execution and
     start from a specified <em>label</em>.</p>
     <div class="sourceCode" id="cb16"><pre
@@ -601,7 +601,8 @@
     <h3 id="recursion">Recursion</h3>
     <p>Another way to execute multiple times a specific code block, is
     by using recursion. We talk about recursion when a function call
-    itself.</p>
+    itself. In the following example, <code>count</code> is a recursive
+    function.</p>
     <div class="sourceCode" id="cb18"><pre
     class="sourceCode c"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>

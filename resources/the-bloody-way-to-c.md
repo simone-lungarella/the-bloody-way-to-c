@@ -330,7 +330,7 @@ It is not mandatory to set the size of the array as the compiler will automatica
 
 ## Code blocks
 
-Code blocks are blocks delimited by brackets that can be part of functions. Each function has at least one code block but can have more. Variables declared in a specific block have a local meaning and occupy a different part in memory.
+Code blocks are blocks delimited by brackets that can be part of functions. Each function has at least one code block. Variables declared in a specific block have a local meaning and occupy a different memory block.
 
 ```c
 #include <stdio.h>
@@ -341,12 +341,12 @@ int main(void) {
   {
     int i = 3;
 
-    // i (4 bytes) is stored at 0x7fff7cae44b8
-    printf("i (%zu bytes) is stored at %p\n", sizeof(i), &i);
+    // (4 bytes) stored at 0x7fff7cae44b8
+    printf("(%zu bytes) stored at %p\n", sizeof(i), &i);
   }
 
-  // i (4 bytes) is stored at 0x7fff7cae44bc
-  printf("i (%zu bytes) is stored at %p\n", sizeof(i), &i);
+  // (4 bytes) stored at 0x7fff7cae44bc
+  printf("(%zu bytes) stored at %p\n", sizeof(i), &i);
 }
 ```
 
@@ -358,7 +358,7 @@ This simple program will show how the two variables, having the same name, will 
 
 Often, the linear execution of a program needs to be interrupted to take a direction based on a specific condition. Conditional code blocks are blocks of code executed only if a specific requirement is satisfied.
 
-The keyword `if` defines a conditional block and the condition that needs to be met:
+The keyword `if` defines a conditional block and the condition that needs to be met for the execution:
 
 ```c
 #include <stdio.h>
@@ -376,13 +376,13 @@ int main(void) {
 
 Conditional blocks are optionally enhanced with `else` or multiple `else if` constructs that build up the logic based on multiple different conditions.
 
-> When conditional code blocks are constituted by a single statement, brackets are not optional: `if (i > 0) printf(i);`.
+> When conditional code blocks are constituted by a single statement, brackets are optional: `if (i > 0) printf(i);`.
 
 \newpage
 
 ## Loops
 
-To be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), a language must have some kind of looping logic. _C_ has many way to iterate the execution of a code block: `for`, `while`, `do-while`. Loops let the program jump at the start of a code block for multiple iteration until a condition is not anymore met. A way to achieve the same result is by using the keyword `goto`.
+To be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), a language must have some kind of looping logic. _C_ has many way to iterate the execution of a code block: `for`, `while`, `do-while`. Loops let the program jump at the start of a code block for multiple iteration each time the condition is met. A way to achieve the same result is by using the keyword `goto`.
 
 The keyword `goto` interrupt the program execution and start from a specified _label_.
 
@@ -418,8 +418,7 @@ int main(void) {
 
 ### Recursion
 
-Another way to execute multiple times a specific code block, is by using recursion. We talk about recursion when a function call itself.
-
+Another way to execute multiple times a specific code block, is by using recursion. We talk about recursion when a function call itself. In the following example, `count` is a recursive function.
 
 ```c
 #include <stdio.h>

@@ -1,5 +1,8 @@
 ## ![Terminal block cursor](./resources/logo_readme.svg) The Bloody Way to C
 
+[![View Website](https://img.shields.io/badge/View-Website-blue?style=for-the-badge&logo=firefox-browser&logoColor=ffffff)](https://simone-lungarella.github.io/the-bloody-way-to-c/)
+[![View PDF](https://img.shields.io/badge/View-PDF-critical?style=for-the-badge&logo=google-docs&logoColor=ffffff)](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/The%20Bloody%20Way%20To%20C.pdf)
+
 ```c
 // Description
 ``` 

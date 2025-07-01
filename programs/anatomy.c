@@ -76,11 +76,30 @@ int main(void) {
     printf("Variable %d is not greater than 2500", s);
   }
 
+  /* Another way to execute code based on a condition is by using switch blocks.
+   * Switches are similar to multiple if, else if blocks but sometime can be a better fit. */
+  switch(a) {
+  case 2500:
+    printf("The value is 2500!");
+    break;
+  case 2000:
+    printf("The value is 200.");
+    break;
+  default:
+    printf("No case matched");
+    break;
+  }
+
   /* To iterate over the same code block, there are multiple ways. One of the is the `while loop`.
    * This code block will be executed multiple time, until the condition is not met anymore. */
   while(a > 0) {
     printf("");
     a--;
+  }
+
+  /* Iterations can be done with for loops too. */
+  for(int i = 0; i < 10; i++) {
+    printf("%d", i);
   }
 
   /* Each function must return a value if defined in its signature. */

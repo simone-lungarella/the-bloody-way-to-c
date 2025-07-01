@@ -78,7 +78,6 @@ In that sense, _C_ language can be visualized as _B_ with types where all types 
 # Anatomy of a C program
 
 ## Execute a C program
-
 _C_ is a compiled language, this means that you cannot execute a file containing the main function. It requires to be compiled in an executable program.
 
 You can use: `cc` to compile a _C_ program. `cc` is a Unix command that let you easily communicate with the compiler. You can use: `cc --version` to check what compiler does it use.
@@ -329,7 +328,6 @@ It is not mandatory to set the size of the array as the compiler will automatica
 \newpage
 
 ## Code blocks
-
 Code blocks are blocks delimited by brackets that can be part of functions. Each function has at least one code block. Variables declared in a specific block have a local meaning and occupy a different memory block.
 
 ```c
@@ -355,7 +353,6 @@ int main(void) {
 This simple program will show how the two variables, having the same name, will be stored in two consecutive memory blocks that differ by exactly 4 bytes (from 0x[...]8 to 0x[...]c).
 
 ### Conditional code blocks
-
 Often, the linear execution of a program needs to be interrupted to take a direction based on a specific condition. Conditional code blocks are blocks of code executed only if a specific requirement is satisfied.
 
 The keyword `if` defines a conditional block and the condition that needs to be met for the execution:
@@ -378,10 +375,34 @@ Conditional blocks are optionally enhanced with `else` or multiple `else if` con
 
 > When conditional code blocks are constituted by a single statement, brackets are optional: `if (i > 0) printf(i);`.
 
+### Switch
+Another useful way to handle conditional blocks is by using `switch` keyword.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int i = 5;
+
+  switch(i) {
+  case 5:
+    printf("It is a five!");
+    break;
+  case 3:
+    printf("It's not a five.");
+    break;
+  default:
+    printf("No case matched.");
+    break;
+  }
+}
+```
+
+Switch blocks can be used to execute code based on a matching condition in an elegant way. Each case code block have to be terminated with the `break` keyword to avoid executing following code blocks too.
+
 \newpage
 
-## Loops
-
+## Iterating
 To be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), a language must have some kind of looping logic. _C_ has many way to iterate the execution of a code block: `for`, `while`, `do-while`. Loops let the program jump at the start of a code block for multiple iteration each time the condition is met. A way to achieve the same result is by using the keyword `goto`.
 
 The keyword `goto` interrupt the program execution and start from a specified _label_.
@@ -417,7 +438,6 @@ int main(void) {
 ```
 
 ### Recursion
-
 Another way to execute multiple times a specific code block, is by using recursion. We talk about recursion when a function call itself. In the following example, `count` is a recursive function.
 
 ```c
@@ -436,3 +456,47 @@ int main(void) {
 ```
 
 Calling multiple time the same functions is equivalent to have multiple code blocks and—as said—each code block instantiate its variables in different memory addresses. This means that recursion, by instantiating multiple time the same variables, uses more memory than a simple while loop.
+
+The recursive function _count_ can be written using `goto` instead of recursion.
+
+```c
+void count(int start, int end) {
+  if (start > end) return;
+iterate:
+  printf("%d\n", start);
+  start++;
+  goto iterate;
+}
+```
+
+### For loops
+Another way to iterate over elements is by using a _for loop_.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  for(int i = 0; i < 10; i++) {
+    printf("%d", i);
+  }
+}
+```
+
+This kind of loop defines the starting value of the loop counter, the exit condition and the increment rule on the same line, then defines the code to be executed in a code block. Loop counter, exit condition and increment rule can be omitted and handled manually if necessary.
+
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int i = 0;
+
+  for(;;) {
+    if (i < 10) break;
+    printf("%d", i);
+    i++;
+  }
+}
+```
+
+> It's important to notice that if the loop counter is defined the same time it is initialized, the variable will be local to the loop block.

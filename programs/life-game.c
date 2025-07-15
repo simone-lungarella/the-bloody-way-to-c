@@ -47,16 +47,16 @@ int cell_to_index(int x, int y) {
   return y * GRID_WIDTH + x;
 }
 
-char get_cell(char* grid, int x, int y) {
+char get_cell(char *grid, int x, int y) {
   return grid[cell_to_index(x, y)];
 }
 
-void set_cell(char* grid, int x, int y, char state) {
+void set_cell(char *grid, int x, int y, char state) {
   grid[cell_to_index(x, y)] = state;
 }
 
 /* Function that redraws the whole grid. */
-void draw(char* grid) {
+void draw(char *grid) {
 
   system("clear");
 
@@ -72,7 +72,7 @@ void draw(char* grid) {
 }
 
 /* Sets up the initial state of the grid. */
-void fill_grid(char* grid, char state) {
+void fill_grid(char *grid, char state) {
 
   for (int x = 0; x < GRID_WIDTH; x++) {
     for (int y = 0; y < GRID_HEIGHT; y++) {
@@ -82,7 +82,7 @@ void fill_grid(char* grid, char state) {
 }
 
 /* Returns the number of living neighbours of a given cell. */
-int count_neighbors(char* grid, int x, int y) {
+int count_neighbors(char *grid, int x, int y) {
   int living_neighbors = 0;
 
   for (int i = -1; i <= 1; i++) {
@@ -103,7 +103,7 @@ int count_neighbors(char* grid, int x, int y) {
 }
 
 /* Creates a new grid updating cell state following the rules. */
-void update_new_grid(char* grid, char* new_grid) {
+void update_new_grid(char *grid, char *new_grid) {
   for (int x = 0; x < GRID_WIDTH; x++) {
     for (int y = 0; y < GRID_HEIGHT; y++) {
 
@@ -124,7 +124,7 @@ void update_new_grid(char* grid, char* new_grid) {
 
 }
 
-void game_loop(char* grid, char* new_grid) {
+void game_loop(char *grid, char *new_grid) {
 
   while(1) {
     update_new_grid(grid, new_grid);
@@ -133,7 +133,7 @@ void game_loop(char* grid, char* new_grid) {
     usleep(DELTA_TIME);
 
     // Swap grid buffers
-    char* temp = grid;
+    char *temp = grid;
     grid = new_grid;
     new_grid = temp;
   }

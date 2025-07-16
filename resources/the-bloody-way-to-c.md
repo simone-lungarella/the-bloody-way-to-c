@@ -500,3 +500,49 @@ int main(void) {
 ```
 
 > It's important to notice that if the loop counter is defined the same time it is initialized, the variable will be local to the loop block.
+
+\newpage
+
+## Pointers
+Pointers are special variables that indicate an area of the memory of a specific type. They are declared with an asterisk as in the expression: `int *y;` where `int` denotes the type of the data allocated at the address. Pointers can map an address of any type and have always the size of a single [word](https://en.wikipedia.org/wiki/Word_(computer_architecture)).
+
+Every variable has its own address in memory, to get the address of a given variable, can be used the operator: `&`.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+  int x = 5;
+  int *y = &x;
+
+  printf("x is stored at the address: %p\n", y);
+  return 0;
+}
+```
+
+Values of variables can be modified interacting with its pointer too, so `int *y = 10` would alter the value of the variable `x`.
+
+Pointers are extremely powerful because they make possible updating variables without any extra memory allocation. It is possible, in fact, to update a variable by calling a function that does not instantiate any local variable but only access and manipulate the value using its pointer.
+
+```c
+#include <stdio.h>
+
+void incr(int *p) {
+  *p = *p + 1;
+}
+
+int main(void) {
+  int x = 5;
+  int *y = &x;
+
+  printf("x was: %d\n", x);
+
+  // This instruction alters the value of x using its pointer
+  incr(y); 
+  printf("x now is: %d\n", x);
+  return 0;
+}
+```
+
+> Pointers have always the size of a `intptr_t` as it represents a memory address. The type declared with the pointer indicates the type of the data stored at the given address.
+

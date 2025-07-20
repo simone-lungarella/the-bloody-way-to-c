@@ -694,8 +694,8 @@
     memory of a specific type. They are declared with an asterisk as in
     the expression: <code>int *y;</code> where <code>int</code> denotes
     the type of the data allocated at the address. Pointers can map an
-    address of any type and have always the size of a single <a
-    href="https://en.wikipedia.org/wiki/Word_(computer_architecture)">word</a>.</p>
+    address of any type and its size depends on the machine’s address
+    size.</p>
     <p>Every variable has its own address in memory, to get the address
     of a given variable, can be used the operator:
     <code>&amp;</code>.</p>
@@ -710,8 +710,9 @@
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
     <p>Values of variables can be modified interacting with its pointer
-    too, so <code>int *y = 10</code> would alter the value of the
-    variable <code>x</code>.</p>
+    too, so <code>*y = 10</code> would alter the value of the variable
+    <code>x</code> if the variable is declared as equal to the address
+    of x: <code>int *y = &amp;x</code>.</p>
     <p>Pointers are extremely powerful because they make possible
     updating variables without any extra memory allocation. It is
     possible, in fact, to update a variable by calling a function that
@@ -739,6 +740,65 @@
     <p>Pointers have always the size of a <code>intptr_t</code> as it
     represents a memory address. The type declared with the pointer
     indicates the type of the data stored at the given address.</p>
+    </blockquote>
+    <h3 id="pointers-math">Pointer’s math</h3>
+    <p>To access the value stored in a memory address defined by a
+    pointer, it is necessary to dereference it using <code>*</code>.</p>
+    <div class="sourceCode" id="cb25"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>y <span class="op">=</span> <span class="op">&amp;</span>x<span class="op">;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;x is: </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="op">*</span>y<span class="op">);</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>However, such operation, can also be done using the form:
+    <code>y[0]</code> which is commonly used for arrays. This type of
+    representation of the values stored in specific addresses is very
+    useful when combined with the fact that, pointers, follow a very
+    specific math and their index can be incremented to access
+    contiguous memory addresses.</p>
+    <div class="sourceCode" id="cb26"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> x<span class="op">[]</span> <span class="op">=</span> <span class="st">&quot;Hello&quot;</span><span class="op">;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// In C, array&#39;s names are also pointers.</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>p <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;At second position value is </span><span class="sc">%c\n</span><span class="st">&quot;</span><span class="op">,</span> p<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;At third position value is </span><span class="sc">%c\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="op">*(</span>p <span class="op">+</span> <span class="dv">2</span><span class="op">));</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>Accessing data in that way works with all types—the language will
+    handle the incrementation accounting for different types by
+    incrementing the address by the given index multiplied by
+    <code>sizeof(&lt;type&gt;)</code>.</p>
+    <p>The fact that pointers are similar to arrays, combined with the
+    fact that operations are much simplified on pointers, is very
+    powerful and give developers much expression strength.</p>
+    <div class="sourceCode" id="cb27"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> x<span class="op">[]</span> <span class="op">=</span> <span class="st">&quot;Hello&quot;</span><span class="op">;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>p <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(*</span>p <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        putchar<span class="op">(*</span>p<span class="op">);</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        p<span class="op">++;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <blockquote>
+    <p>Pointers are variables, and as such, they are stored in some
+    address in memory. This make it possible to have pointers to
+    pointers: <code>int **z = &amp;y;</code> where <code>y</code> is a
+    pointer to an integer.</p>
     </blockquote>
   </main>
 </body>

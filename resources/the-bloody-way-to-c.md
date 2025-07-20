@@ -504,7 +504,7 @@ int main(void) {
 \newpage
 
 ## Pointers
-Pointers are special variables that indicate an area of the memory of a specific type. They are declared with an asterisk as in the expression: `int *y;` where `int` denotes the type of the data allocated at the address. Pointers can map an address of any type and have always the size of a single [word](https://en.wikipedia.org/wiki/Word_(computer_architecture)).
+Pointers are special variables that indicate an area of the memory of a specific type. They are declared with an asterisk as in the expression: `int *y;` where `int` denotes the type of the data allocated at the address. Pointers can map an address of any type and its size depends on the machine's address size.
 
 Every variable has its own address in memory, to get the address of a given variable, can be used the operator: `&`.
 
@@ -520,7 +520,7 @@ int main(void) {
 }
 ```
 
-Values of variables can be modified interacting with its pointer too, so `int *y = 10` would alter the value of the variable `x`.
+Values of variables can be modified interacting with its pointer too, so `*y = 10` would alter the value of the variable `x` if the variable is declared as equal to the address of x: `int *y = &x`.
 
 Pointers are extremely powerful because they make possible updating variables without any extra memory allocation. It is possible, in fact, to update a variable by calling a function that does not instantiate any local variable but only access and manipulate the value using its pointer.
 
@@ -546,3 +546,56 @@ int main(void) {
 
 > Pointers have always the size of a `intptr_t` as it represents a memory address. The type declared with the pointer indicates the type of the data stored at the given address.
 
+### Pointer's math
+To access the value stored in a memory address defined by a pointer, it is necessary to dereference it using `*`.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    int x = 5;
+    int *y = &x;
+
+    printf("x is: %d\n", *y);
+    return 0;
+}
+```
+
+However, such operation, can also be done using the form: `y[0]` which is commonly used for arrays. This type of representation of the values stored in specific addresses is very useful when combined with the fact that, pointers, follow a very specific math and their index can be incremented to access contiguous memory addresses.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char x[] = "Hello";
+    // In C, array's names are also pointers.
+    char *p = x;
+
+    printf("At second position value is %c\n", p[1]);
+    printf("At third position value is %c\n", *(p + 2));
+
+    return 0;
+}
+```
+
+Accessing data in that way works with all types—the language will handle the incrementation accounting for different types by incrementing the address by the given index multiplied by `sizeof(<type>)`.
+
+The fact that pointers are similar to arrays, combined with the fact that operations are much simplified on pointers, is very powerful and give developers much expression strength.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    char x[] = "Hello";
+    char *p = x;
+
+    while(*p != 0) {
+        putchar(*p);
+        p++;
+    }
+        
+    return 0;
+}
+```
+
+> Pointers are variables, and as such, they are stored in some address in memory. This make it possible to have pointers to pointers: `int **z = &y;` where `y` is a pointer to an integer.

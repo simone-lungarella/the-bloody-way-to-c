@@ -96,8 +96,8 @@ Let's consider the following simple _C_ program contained in a file named—for 
 #include <stdio.h>
 
 int main(void) {
-  printf("Hello World\n");
-  return 0;
+    printf("Hello World\n");
+    return 0;
 }
 ```
 
@@ -165,8 +165,8 @@ In the very first line of our simple program, you can see a [preprocessor](https
 int printf(const char *restrict format, ...);
 
 int main(void) {
-  printf("Hello World\n");
-  return 0;
+    printf("Hello World\n");
+    return 0;
 }
 ```
 
@@ -176,8 +176,8 @@ int main(void) {
 #include <stdio.h>
 
 int main(void) {
-  #include "file.c"
-  return 0;
+    #include "file.c"
+    return 0;
 }
 ```
 
@@ -196,12 +196,12 @@ Functions can call other functions too!
 #include <stdio.h>
 
 int sum(int a, int b) {
-  return a + b;
+    return a + b;
 }
 
 int main(void) {
-  printf("Hello World %d\n", sum(10, 20));
-  return 0;
+    printf("Hello World %d\n", sum(10, 20));
+    return 0;
 }
 ```
 
@@ -221,15 +221,15 @@ To understand this concept, let's consider the following program:
 #include <stdio.h>
 
 int sum(int a, int b) {
-  return a + b;
+    return a + b;
 }
 
 int main(void) {
-  int a = 10;
-  int c = 20;
+    int a = 10;
+    int c = 20;
 
-  printf("Hello World %d\n", sum(a, c));
-  return 0;
+    printf("Hello World %d\n", sum(a, c));
+    return 0;
 }
 ```
 
@@ -249,15 +249,15 @@ Variables can also have a global scope. A global variable is seen by every funct
 int x = 0;
 
 void incr(void) {
-  x = x + 1;
-  printf("%d\n", x);
+    x = x + 1;
+    printf("%d\n", x);
 }
 
 int main(void) {
-  incr();
-  incr();
+    incr();
+    incr();
 
-  return 0;
+    return 0;
 }
 ```
 
@@ -284,21 +284,21 @@ In many cases, types are automatically _promoted_ to a higher size type to easil
 
 
 ```c
-  short s = 400;
+    short s = 400;
 
-  // `s` is automatically converted.
-  printf("%d\n", s);
+    // `s` is automatically converted.
+    printf("%d\n", s);
 ```
 
 This happens with functions such as `printf`, which accept a variable number of parameters (variadic function), but also during expressions evaluations if necessary.
 
 
 ```c
-  char c = 127;
+    char c = 127;
 
-  // Before evaluation, `c` is promoted to int.
-  int i = c + 1;
-  printf("%d\n", i);
+    // Before evaluation, `c` is promoted to int.
+    int i = c + 1;
+    printf("%d\n", i);
 ```
 
 Since the size of types is variable and depends on the architecture, there is a specific function that returns the size of a specific variable: `sizeof(var)`.
@@ -306,9 +306,9 @@ Since the size of types is variable and depends on the architecture, there is a 
 Variables can represent a single value or a collection of values. To define a variable and store multiple values of the same type, _C_ provides **Arrays**.
 
 ```c
-  int array[5] = {1, 2, 3, 4, 5};
+    int array[5] = {1, 2, 3, 4, 5};
 
-  printf("%d\n", array[0]);
+    printf("%d\n", array[0]);
 ```
 
 Arrays can store multiple values in different positions and track a contiguous block of memory. To access value in a specific position you can use each index starting from `0` up to `n-1`.
@@ -316,9 +316,9 @@ Arrays can store multiple values in different positions and track a contiguous b
 Arrays of characters are named _strings_, and—since they are very common—there is a simpler way to initialize them:
 
 ```c
-  char phrase[] = "Hello World";
+    char phrase[] = "Hello World";
 
-  printf("%s\n", phrase);
+    printf("%s\n", phrase);
 ```
 
 It is not mandatory to set the size of the array as the compiler will automatically do it by checking the its size. You can evaluate the size of a string too using: `sizeof(string)`, which is also evaluated at compile time.
@@ -334,17 +334,17 @@ Code blocks are blocks delimited by brackets that can be part of functions. Each
 #include <stdio.h>
 
 int main(void) {
-  int i = 5;
+    int i = 5;
 
-  {
-    int i = 3;
+    {
+        int i = 3;
 
-    // (4 bytes) stored at 0x7fff7cae44b8
+        // (4 bytes) stored at 0x7fff7cae44b8
+        printf("(%zu bytes) stored at %p\n", sizeof(i), &i);
+    }
+
+    // (4 bytes) stored at 0x7fff7cae44bc
     printf("(%zu bytes) stored at %p\n", sizeof(i), &i);
-  }
-
-  // (4 bytes) stored at 0x7fff7cae44bc
-  printf("(%zu bytes) stored at %p\n", sizeof(i), &i);
 }
 ```
 
@@ -361,13 +361,13 @@ The keyword `if` defines a conditional block and the condition that needs to be 
 #include <stdio.h>
 
 int main(void) {
-  int i = 5;
+    int i = 5;
 
-  if (i> 3) {
-    printf("Value %d is greater than 3\n", i);
-  } else {
-    printf("Value %d is not greater than 3\n", i);
-  }
+    if (i> 3) {
+        printf("Value %d is greater than 3\n", i);
+    } else {
+        printf("Value %d is not greater than 3\n", i);
+    }
 }
 ```
 
@@ -382,19 +382,19 @@ Another useful way to handle conditional blocks is by using `switch` keyword.
 #include <stdio.h>
 
 int main(void) {
-  int i = 5;
+    int i = 5;
 
-  switch(i) {
-  case 5:
-    printf("It is a five!");
-    break;
-  case 3:
-    printf("It's not a five.");
-    break;
-  default:
-    printf("No case matched.");
-    break;
-  }
+    switch(i) {
+        case 5:
+            printf("It is a five!");
+            break;
+        case 3:
+            printf("It's not a five.");
+            break;
+        default:
+            printf("No case matched.");
+            break;
+    }
 }
 ```
 
@@ -411,12 +411,12 @@ The keyword `goto` interrupt the program execution and start from a specified _l
 #include <stdio.h>
 
 int main(void) {
-  int i = 0;
+    int i = 0;
 
 again:
-  printf("%d", i);
-  i++;
-  if (i < 10) goto again;
+    printf("%d", i);
+    i++;
+    if (i < 10) goto again;
 }
 ```
 
@@ -428,12 +428,12 @@ The logic to iterate a code block or a set of instruction can be also written by
 #include <stdio.h>
 
 int main(void) {
-  int i = 0;
+    int i = 0;
 
-  while(i < 10) {
-    printf("%d", i);
-    i++;
-  }
+    while(i < 10) {
+        printf("%d", i);
+        i++;
+    }
 }
 ```
 
@@ -444,14 +444,14 @@ Another way to execute multiple times a specific code block, is by using recursi
 #include <stdio.h>
 
 void count(int start, int end) {
-  if (start > end) return;
-  printf("%d\n", start);
-  count(start + 1, end);
+    if (start > end) return;
+    printf("%d\n", start);
+    count(start + 1, end);
 }
 
 int main(void) {
-  count(0, 9);
-  return 0;
+    count(0, 9);
+    return 0;
 }
 ```
 
@@ -461,11 +461,11 @@ The recursive function _count_ can be written using `goto` instead of recursion.
 
 ```c
 void count(int start, int end) {
-  if (start > end) return;
+    if (start > end) return;
 iterate:
-  printf("%d\n", start);
-  start++;
-  goto iterate;
+    printf("%d\n", start);
+    start++;
+    goto iterate;
 }
 ```
 
@@ -476,9 +476,9 @@ Another way to iterate over elements is by using a _for loop_.
 #include <stdio.h>
 
 int main(void) {
-  for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 10; i++) {
     printf("%d", i);
-  }
+    }
 }
 ```
 
@@ -489,13 +489,13 @@ This kind of loop defines the starting value of the loop counter, the exit condi
 #include <stdio.h>
 
 int main(void) {
-  int i = 0;
+    int i = 0;
 
-  for(;;) {
-    if (i < 10) break;
-    printf("%d", i);
-    i++;
-  }
+    for(;;) {
+        if (i < 10) break;
+        printf("%d", i);
+        i++;
+    }
 }
 ```
 
@@ -512,11 +512,11 @@ Every variable has its own address in memory, to get the address of a given vari
 #include <stdio.h>
 
 int main(void) {
-  int x = 5;
-  int *y = &x;
+    int x = 5;
+    int *y = &x;
 
-  printf("x is stored at the address: %p\n", y);
-  return 0;
+    printf("x is stored at the address: %p\n", y);
+    return 0;
 }
 ```
 
@@ -528,19 +528,19 @@ Pointers are extremely powerful because they make possible updating variables wi
 #include <stdio.h>
 
 void incr(int *p) {
-  *p = *p + 1;
+    *p = *p + 1;
 }
 
 int main(void) {
-  int x = 5;
-  int *y = &x;
+    int x = 5;
+    int *y = &x;
 
-  printf("x was: %d\n", x);
+    printf("x was: %d\n", x);
 
-  // This instruction alters the value of x using its pointer
-  incr(y); 
-  printf("x now is: %d\n", x);
-  return 0;
+    // This instruction alters the value of x using its pointer
+    incr(y); 
+    printf("x now is: %d\n", x);
+    return 0;
 }
 ```
 

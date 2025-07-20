@@ -32,13 +32,13 @@
  * In this way we simulate an infinite grid. */
 int cell_to_index(int x, int y) {
   if (x < 0) {
-      x = (-x) % GRID_WIDTH;
-      x = GRID_WIDTH - x;
+    x = (-x) % GRID_WIDTH;
+    x = GRID_WIDTH - x;
   }
 
   if (y < 0) {
-      y = (-y) % GRID_HEIGHT;
-      y = GRID_HEIGHT - y;
+    y = (-y) % GRID_HEIGHT;
+    y = GRID_HEIGHT - y;
   }
 
   if (x >= GRID_WIDTH) x = x % GRID_WIDTH;
@@ -115,7 +115,7 @@ void update_new_grid(char *grid, char *new_grid) {
           new_state = ALIVE;
         }
       } else if (living_neighbors == 3) {
-          new_state = ALIVE;
+        new_state = ALIVE;
       }
 
       set_cell(new_grid, x, y, new_state);

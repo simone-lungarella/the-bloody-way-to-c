@@ -10,18 +10,17 @@
  * reproduce them in a simple matrix in the terminal. The code is highly inspired by Salvatore Sanfilippo. */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 
 /* Alter the frame rate to accelerate state changes. */
-#define FRAMERATE 4
+#define FRAMERATE 6
 #define MS_IN_SECOND 1000000
 #define DELTA_TIME (MS_IN_SECOND / FRAMERATE)
 
 /* This grid looks like a square in my terminal with my current font.
  * Alter values to modify the grid extension. */
-#define GRID_WIDTH 16
-#define GRID_HEIGHT 40
+#define GRID_HEIGHT 16
+#define GRID_WIDTH 40
 
 #define ALIVE '*'
 #define DEAD '.'
@@ -31,20 +30,9 @@
  * moving cells wrapping around and continue from the other side.
  * In this way we simulate an infinite grid. */
 int cell_to_index(int x, int y) {
-  if (x < 0) {
-    x = (-x) % GRID_WIDTH;
-    x = GRID_WIDTH - x;
-  }
-
-  if (y < 0) {
-    y = (-y) % GRID_HEIGHT;
-    y = GRID_HEIGHT - y;
-  }
-
-  if (x >= GRID_WIDTH) x = x % GRID_WIDTH;
-  if (y >= GRID_HEIGHT) y = y % GRID_HEIGHT;
-
-  return y * GRID_WIDTH + x;
+  x = (x + GRID_HEIGHT) % GRID_HEIGHT;
+  y = (y + GRID_WIDTH) % GRID_WIDTH;
+  return x * GRID_WIDTH + y;
 }
 
 char get_cell(char *grid, int x, int y) {
@@ -58,10 +46,11 @@ void set_cell(char *grid, int x, int y, char state) {
 /* Function that redraws the whole grid. */
 void draw(char *grid) {
 
-  system("clear");
+  // Clears the screen
+  printf("\033[H\033[J");
 
-  for (int x = 0; x < GRID_WIDTH; x++) {
-    for (int y = 0; y < GRID_HEIGHT; y++) {
+  for (int x = 0; x < GRID_HEIGHT; x++) {
+    for (int y = 0; y < GRID_WIDTH; y++) {
       printf("%c", get_cell(grid, x, y));
     }
 
@@ -74,8 +63,8 @@ void draw(char *grid) {
 /* Sets up the initial state of the grid. */
 void fill_grid(char *grid, char state) {
 
-  for (int x = 0; x < GRID_WIDTH; x++) {
-    for (int y = 0; y < GRID_HEIGHT; y++) {
+  for (int x = 0; x < GRID_HEIGHT; x++) {
+    for (int y = 0; y < GRID_WIDTH; y++) {
       set_cell(grid, x, y, state);
     }
   }
@@ -104,8 +93,8 @@ int count_neighbors(char *grid, int x, int y) {
 
 /* Creates a new grid updating cell state following the rules. */
 void update_new_grid(char *grid, char *new_grid) {
-  for (int x = 0; x < GRID_WIDTH; x++) {
-    for (int y = 0; y < GRID_HEIGHT; y++) {
+  for (int x = 0; x < GRID_HEIGHT; x++) {
+    for (int y = 0; y < GRID_WIDTH; y++) {
 
       int living_neighbors = count_neighbors(grid, x, y);
       char new_state = DEAD;
@@ -142,16 +131,24 @@ void game_loop(char *grid, char *new_grid) {
 int main(void) {
 
   /* Setup starting system state. */
-  char grid[GRID_HEIGHT * GRID_WIDTH];
-  char new_grid[GRID_HEIGHT * GRID_WIDTH];
+  char grid[GRID_WIDTH * GRID_HEIGHT];
+  char new_grid[GRID_WIDTH * GRID_HEIGHT];
 
   fill_grid(grid, DEAD);
 
-  set_cell(grid, 5, 5, ALIVE); set_cell(grid, 2, 5, ALIVE);
-  set_cell(grid, 5, 6, ALIVE); set_cell(grid, 2, 6, ALIVE);
-  set_cell(grid, 17, 8, ALIVE); set_cell(grid, 16, 8, ALIVE);
-  set_cell(grid, 22, 6, ALIVE); set_cell(grid, 22, 7, ALIVE);
-  set_cell(grid, 21, 5, ALIVE); set_cell(grid, 23, 5, ALIVE);
+  set_cell(grid, 3, 10, ALIVE);
+  set_cell(grid, 3, 11, ALIVE);
+  set_cell(grid, 3, 12, ALIVE);
+  set_cell(grid, 3, 13, ALIVE);
+  set_cell(grid, 3, 14, ALIVE);
+  set_cell(grid, 3, 15, ALIVE);
+
+  set_cell(grid, 7, 17, ALIVE);
+  set_cell(grid, 7, 18, ALIVE);
+  set_cell(grid, 7, 19, ALIVE);
+  set_cell(grid, 7, 20, ALIVE);
+  set_cell(grid, 7, 21, ALIVE);
+  set_cell(grid, 7, 22, ALIVE);
 
   game_loop(grid, new_grid);
 

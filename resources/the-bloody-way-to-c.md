@@ -75,9 +75,7 @@ In that sense, _C_ language can be visualized as _B_ with types where all types 
 
 \newpage
 
-# Anatomy of a C program
-
-## Execute a C program
+# Execute a C program
 _C_ is a compiled language, this means that you cannot execute a file containing the main function. It requires to be compiled in an executable program.
 
 You can use: `cc` to compile a _C_ program. `cc` is a Unix command that let you easily communicate with the compiler. You can use: `cc --version` to check what compiler does it use.
@@ -158,7 +156,7 @@ Using `-O2` flag can make the compiler use _puts_ as this syscall is faster than
 
 \newpage
 
-## Include other source code
+# Include other source code
 In the very first line of our simple program, you can see a [preprocessor](https://en.wikipedia.org/wiki/Preprocessor) [directive](https://en.wikipedia.org/wiki/Directive_(programming)). This line simply tells to the compiler that a file need to be included into the program. The compiler, before the compilation, take the content of the file and _paste_ it at the location. In this case, `<stdio.h>` declares the prototype of _printf_ function so to instruct the compiler on how to execute that specific call. To prove this point, you can remove the first line and replace it with: `int printf(const char *restrict format, ...);` which is the prototype of the function we want to call.
 
 ```c
@@ -185,7 +183,7 @@ The generated assembly or machine code will be equivalent.
 
 \newpage
 
-## Functions
+# Functions
 This very simple program has a single function named _main_. A function has always a return type, an _optional_ list of parameters, and a body. The signature of the function _main_ has a return type specified as `int`—this means that the function must return an integer value. 
 
 Parameters are defined inside the brackets of the function and they too have a specific type. It is also possible to define a function that does not require any parameter. This can be explicit, using `void` as the function `main` does, or implicit, by simply avoiding specifying any parameter: `int main() {}`.
@@ -209,7 +207,7 @@ The function `main` is a special function, in fact, it is the only function that
 
 \newpage
 
-## Variables
+# Variables
 Functions parameters are variables existing only during the function execution. There are variables which are not involved only in function calls but also have a meaning in the callee context or even in the whole program context.
 
 ### Scope
@@ -327,7 +325,7 @@ It is not mandatory to set the size of the array as the compiler will automatica
 
 \newpage
 
-## Code blocks
+# Code blocks
 Code blocks are blocks delimited by brackets that can be part of functions. Each function has at least one code block. Variables declared in a specific block have a local meaning and occupy a different memory block.
 
 ```c
@@ -375,7 +373,7 @@ Conditional blocks are optionally enhanced with `else` or multiple `else if` con
 
 > When conditional code blocks are constituted by a single statement, brackets are optional: `if (i > 0) printf(i);`.
 
-### Switch
+## Switch
 Another useful way to handle conditional blocks is by using `switch` keyword.
 
 ```c
@@ -402,7 +400,7 @@ Switch blocks can be used to execute code based on a matching condition in an el
 
 \newpage
 
-## Iterating
+# Iterating
 To be [Turing-complete](https://en.wikipedia.org/wiki/Turing_completeness), a language must have some kind of looping logic. _C_ has many way to iterate the execution of a code block: `for`, `while`, `do-while`. Loops let the program jump at the start of a code block for multiple iteration each time the condition is met. A way to achieve the same result is by using the keyword `goto`.
 
 The keyword `goto` interrupt the program execution and start from a specified _label_.
@@ -437,7 +435,7 @@ int main(void) {
 }
 ```
 
-### Recursion
+## Recursion
 Another way to execute multiple times a specific code block, is by using recursion. We talk about recursion when a function call itself. In the following example, `count` is a recursive function.
 
 ```c
@@ -469,7 +467,7 @@ iterate:
 }
 ```
 
-### For loops
+## For loops
 Another way to iterate over elements is by using a _for loop_.
 
 ```c
@@ -503,7 +501,7 @@ int main(void) {
 
 \newpage
 
-## Pointers
+# Pointers
 Pointers are special variables that indicate an area of the memory of a specific type. They are declared with an asterisk as in the expression: `int *y;` where `int` denotes the type of the data allocated at the address. Pointers can map an address of any type and its size depends on the machine's address size.
 
 Every variable has its own address in memory, to get the address of a given variable, can be used the operator: `&`.
@@ -546,7 +544,7 @@ int main(void) {
 
 > Pointers have always the size of a `intptr_t` as it represents a memory address. The type declared with the pointer indicates the type of the data stored at the given address.
 
-### Pointer's math
+## Pointer's math
 To access the value stored in a memory address defined by a pointer, it is necessary to dereference it using `*`.
 
 ```c
@@ -599,3 +597,27 @@ int main(void) {
 ```
 
 > Pointers are variables, and as such, they are stored in some address in memory. This make it possible to have pointers to pointers: `int **z = &y;` where `y` is a pointer to an integer.
+
+\newpage
+
+# Working with memory
+In _C_, memory is handled manually by the developers. This is a very powerful feature of the language but make it very easily error-prone.
+
+We use `malloc()` to allocate part of the memory and `free()` to release it.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(void) {
+    char *mystr = malloc(11);
+    mystr = "Hello World";
+        
+    printf("%s", mystr);
+    free(mystr);
+    return 0;
+}
+```
+
+For a better use case, you can check [program 2](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c).

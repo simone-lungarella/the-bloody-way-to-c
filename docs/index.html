@@ -172,8 +172,7 @@
     language as it can be easily picked up by new developers, layered to
     build a powerful abstraction and, with that, imagine in simple terms
     complex topics and algorithms.</p>
-    <h1 id="anatomy-of-a-c-program">Anatomy of a C program</h1>
-    <h2 id="execute-a-c-program">Execute a C program</h2>
+    <h1 id="execute-a-c-program">Execute a C program</h1>
     <p><em>C</em> is a compiled language, this means that you cannot
     execute a file containing the main function. It requires to be
     compiled in an executable program.</p>
@@ -269,7 +268,7 @@
     documentation of both syscalls (3 makes sure to output the C library
     description).</p>
     </blockquote>
-    <h2 id="include-other-source-code">Include other source code</h2>
+    <h1 id="include-other-source-code">Include other source code</h1>
     <p>In the very first line of our simple program, you can see a <a
     href="https://en.wikipedia.org/wiki/Preprocessor">preprocessor</a>
     <a
@@ -302,7 +301,7 @@
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
     <p>The generated assembly or machine code will be equivalent.</p>
-    <h2 id="functions">Functions</h2>
+    <h1 id="functions">Functions</h1>
     <p>This very simple program has a single function named
     <em>main</em>. A function has always a return type, an
     <em>optional</em> list of parameters, and a body. The signature of
@@ -331,7 +330,7 @@
     is the only function that is automatically called by the program.
     Other functions must be explicitly called. This means that a valid
     <em>C</em> program must define the <em>main</em> function.</p>
-    <h2 id="variables">Variables</h2>
+    <h1 id="variables">Variables</h1>
     <p>Functions parameters are variables existing only during the
     function execution. There are variables which are not involved only
     in function calls but also have a meaning in the callee context or
@@ -504,7 +503,7 @@
     initializing a string using quotes automatically adds the null
     terminator.</p>
     </blockquote>
-    <h2 id="code-blocks">Code blocks</h2>
+    <h1 id="code-blocks">Code blocks</h1>
     <p>Code blocks are blocks delimited by brackets that can be part of
     functions. Each function has at least one code block. Variables
     declared in a specific block have a local meaning and occupy a
@@ -560,7 +559,7 @@
     statement, brackets are optional:
     <code>if (i &gt; 0) printf(i);</code>.</p>
     </blockquote>
-    <h3 id="switch">Switch</h3>
+    <h2 id="switch">Switch</h2>
     <p>Another useful way to handle conditional blocks is by using
     <code>switch</code> keyword.</p>
     <div class="sourceCode" id="cb16"><pre
@@ -585,7 +584,7 @@
     condition in an elegant way. Each case code block have to be
     terminated with the <code>break</code> keyword to avoid executing
     following code blocks too.</p>
-    <h2 id="iterating">Iterating</h2>
+    <h1 id="iterating">Iterating</h1>
     <p>To be <a
     href="https://en.wikipedia.org/wiki/Turing_completeness">Turing-complete</a>,
     a language must have some kind of looping logic. <em>C</em> has many
@@ -623,7 +622,7 @@
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        i<span class="op">++;</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-    <h3 id="recursion">Recursion</h3>
+    <h2 id="recursion">Recursion</h2>
     <p>Another way to execute multiple times a specific code block, is
     by using recursion. We talk about recursion when a function call
     itself. In the following example, <code>count</code> is a recursive
@@ -656,7 +655,7 @@
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    start<span class="op">++;</span></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">goto</span> iterate<span class="op">;</span></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-    <h3 id="for-loops">For loops</h3>
+    <h2 id="for-loops">For loops</h2>
     <p>Another way to iterate over elements is by using a <em>for
     loop</em>.</p>
     <div class="sourceCode" id="cb21"><pre
@@ -689,7 +688,7 @@
     same time it is initialized, the variable will be local to the loop
     block.</p>
     </blockquote>
-    <h2 id="pointers">Pointers</h2>
+    <h1 id="pointers">Pointers</h1>
     <p>Pointers are special variables that indicate an area of the
     memory of a specific type. They are declared with an asterisk as in
     the expression: <code>int *y;</code> where <code>int</code> denotes
@@ -741,7 +740,7 @@
     represents a memory address. The type declared with the pointer
     indicates the type of the data stored at the given address.</p>
     </blockquote>
-    <h3 id="pointers-math">Pointer’s math</h3>
+    <h2 id="pointers-math">Pointer’s math</h2>
     <p>To access the value stored in a memory address defined by a
     pointer, it is necessary to dereference it using <code>*</code>.</p>
     <div class="sourceCode" id="cb25"><pre
@@ -800,6 +799,28 @@
     pointers: <code>int **z = &amp;y;</code> where <code>y</code> is a
     pointer to an integer.</p>
     </blockquote>
+    <h1 id="working-with-memory">Working with memory</h1>
+    <p>In <em>C</em>, memory is handled manually by the developers. This
+    is a very powerful feature of the language but make it very easily
+    error-prone.</p>
+    <p>We use <code>malloc()</code> to allocate part of the memory and
+    <code>free()</code> to release it.</p>
+    <div class="sourceCode" id="cb28"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>mystr <span class="op">=</span> malloc<span class="op">(</span><span class="dv">11</span><span class="op">);</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    mystr <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span><span class="op">;</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%s</span><span class="st">&quot;</span><span class="op">,</span> mystr<span class="op">);</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>mystr<span class="op">);</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <p>For a better use case, you can check <a
+    href="https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c">program
+    2</a>.</p>
   </main>
 </body>
 </html>

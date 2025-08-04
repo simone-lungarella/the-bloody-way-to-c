@@ -210,7 +210,7 @@ The function `main` is a special function, in fact, it is the only function that
 # Variables
 Functions parameters are variables existing only during the function execution. There are variables which are not involved only in function calls but also have a meaning in the callee context or even in the whole program context.
 
-### Scope
+## Scope
 Variables can have different scope. In the previous example, the function `int sum(int a, int b)` has two variables as parameters having a local scope. When variables are local, they are valid only within the function context and have no meaning to other functions. 
 
 To understand this concept, let's consider the following program:
@@ -263,7 +263,7 @@ In such cases the value of `x` is incremented by one each time the function is c
 
 It's important to highlight that, in _C_, variables are passed **by value**. This means that whenever a function is called, it cannot modify any existing variable local to the callee but, for each of its parameters, a copy of the value is passed. To modify local variables with functions it is necessary to use _pointers_ which will be described extensively in a dedicated chapter.
 
-### Type
+## Type
 We have seen variables having type _int_, but there are multiple primitive types that can define different kinds of data. For simplicity, a subset of common primitive types is shown into the following table, refer to the [standard documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Primitive-Types) to explore all different existing types.
 
 | Type                 | Common size (b)       | Description                           |
@@ -350,7 +350,7 @@ int main(void) {
 
 This simple program will show how the two variables, having the same name, will be stored in two consecutive memory blocks that differ by exactly 4 bytes (from 0x[...]8 to 0x[...]c).
 
-### Conditional code blocks
+## Conditional code blocks
 Often, the linear execution of a program needs to be interrupted to take a direction based on a specific condition. Conditional code blocks are blocks of code executed only if a specific requirement is satisfied.
 
 The keyword `if` defines a conditional block and the condition that needs to be met for the execution:
@@ -544,6 +544,8 @@ int main(void) {
 
 > Pointers have always the size of a `intptr_t` as it represents a memory address. The type declared with the pointer indicates the type of the data stored at the given address.
 
+\newpage
+
 ## Pointer's math
 To access the value stored in a memory address defined by a pointer, it is necessary to dereference it using `*`.
 
@@ -596,7 +598,9 @@ int main(void) {
 }
 ```
 
-> Pointers are variables, and as such, they are stored in some address in memory. This make it possible to have pointers to pointers: `int **z = &y;` where `y` is a pointer to an integer.
+Pointers are variables, and as such, they are stored in some address in memory. This make it possible to have pointers to pointers: `int **z = &y;` where `y` is a pointer to an integer.
+
+> For a comprehensive program that make use of all concepts introduced, check out [Conway's Game of Life](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/life-game.c).
 
 \newpage
 
@@ -620,4 +624,4 @@ int main(void) {
 }
 ```
 
-For a better use case, you can check [program 2](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c).
+For a better use case, you can check [Prefixed Strings](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c).

@@ -335,7 +335,7 @@
     function execution. There are variables which are not involved only
     in function calls but also have a meaning in the callee context or
     even in the whole program context.</p>
-    <h3 id="scope">Scope</h3>
+    <h2 id="scope">Scope</h2>
     <p>Variables can have different scope. In the previous example, the
     function <code>int sum(int a, int b)</code> has two variables as
     parameters having a local scope. When variables are local, they are
@@ -400,7 +400,7 @@
     passed. To modify local variables with functions it is necessary to
     use <em>pointers</em> which will be described extensively in a
     dedicated chapter.</p>
-    <h3 id="type">Type</h3>
+    <h2 id="type">Type</h2>
     <p>We have seen variables having type <em>int</em>, but there are
     multiple primitive types that can define different kinds of data.
     For simplicity, a subset of common primitive types is shown into the
@@ -532,7 +532,7 @@
     <p>This simple program will show how the two variables, having the
     same name, will be stored in two consecutive memory blocks that
     differ by exactly 4 bytes (from 0x[…]8 to 0x[…]c).</p>
-    <h3 id="conditional-code-blocks">Conditional code blocks</h3>
+    <h2 id="conditional-code-blocks">Conditional code blocks</h2>
     <p>Often, the linear execution of a program needs to be interrupted
     to take a direction based on a specific condition. Conditional code
     blocks are blocks of code executed only if a specific requirement is
@@ -793,11 +793,15 @@
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-    <blockquote>
     <p>Pointers are variables, and as such, they are stored in some
     address in memory. This make it possible to have pointers to
     pointers: <code>int **z = &amp;y;</code> where <code>y</code> is a
     pointer to an integer.</p>
+    <blockquote>
+    <p>For a comprehensive program that make use of all concepts
+    introduced, check out <a
+    href="https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/life-game.c">Conway’s
+    Game of Life</a>.</p>
     </blockquote>
     <h1 id="working-with-memory">Working with memory</h1>
     <p>In <em>C</em>, memory is handled manually by the developers. This
@@ -819,8 +823,8 @@
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
     <p>For a better use case, you can check <a
-    href="https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c">program
-    2</a>.</p>
+    href="https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c">Prefixed
+    Strings</a>.</p>
   </main>
 </body>
 </html>

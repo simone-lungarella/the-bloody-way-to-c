@@ -625,3 +625,28 @@ int main(void) {
 ```
 
 For a better use case, you can check [Prefixed Strings](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/prefixed-string.c).
+
+\newpage
+
+# Structures
+When working on complex scenarios, built-in _C_ types are often not enough. In _C_, it is possible to define structures having specific fields using the keyword `struct`.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct item {
+    int value;
+    char *name;
+};
+
+int main(void) {
+    struct item *building = malloc(sizeof(struct item));
+    building->name = "House";
+    building->value = 10000;
+
+    printf("Building: %s has the value of: %d", building->name, building->value);
+    return 0;
+}
+```
+

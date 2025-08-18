@@ -632,6 +632,19 @@ For a better use case, you can check [Prefixed Strings](https://github.com/simon
 When working on complex scenarios, built-in _C_ types are often not enough. In _C_, it is possible to define structures having specific fields using the keyword `struct`.
 
 ```c
+struct item {
+    int value;
+    char *name;
+};
+```
+
+Structure fields can be accessed using the operator: `.` (dot) when locally allocated and the operator: `->` (arrow) when handling structure pointers.
+
+> Using different operators to access structure fields helps make the developer's intention clear. While the compiler can already distinguish whether a variable is a pointer or not, explicitly choosing the appropriate operator improves code readability.
+
+Fields can be read and wrote using the same operators, structure can greatly improve code readability and simplify the software.
+
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -642,11 +655,22 @@ struct item {
 
 int main(void) {
     struct item *building = malloc(sizeof(struct item));
+
+    // Alternative ways of instantiating structures in C
+    // struct item building = {.value = 10000, .name = "House"};
+    // struct item building = {10000, "House"};
+
     building->name = "House";
     building->value = 10000;
 
     printf("Building: %s has the value of: %d", building->name, building->value);
+
+    free(building);
     return 0;
 }
 ```
 
+## Memory management
+Structures, by default, guarantee that each member is stored in a memory address multiple of its size. This means that field order has an impact on memory usage. For example, a structure having three fields: `int, char, int` will make use of 12 bytes by adding a 3-bytes padding after the char.
+
+It is not common but it is also possible to instantiate structures in functions and return them as values. This approach does not require usage of `malloc` and `free` but with heavy structures it can easily decrease the performances of the software since all the bytes need to be copied.

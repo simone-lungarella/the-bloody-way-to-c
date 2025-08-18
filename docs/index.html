@@ -830,22 +830,56 @@
     often not enough. In <em>C</em>, it is possible to define structures
     having specific fields using the keyword <code>struct</code>.</p>
     <div class="sourceCode" id="cb29"><pre
-    class="sourceCode c"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> item <span class="op">{</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> value<span class="op">;</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>name<span class="op">;</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> item <span class="op">*</span>building <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> item<span class="op">));</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    building<span class="op">-&gt;</span>name <span class="op">=</span> <span class="st">&quot;House&quot;</span><span class="op">;</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    building<span class="op">-&gt;</span>value <span class="op">=</span> <span class="dv">10000</span><span class="op">;</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;Building: </span><span class="sc">%s</span><span class="st"> has the value of: </span><span class="sc">%d</span><span class="st">&quot;</span><span class="op">,</span> building<span class="op">-&gt;</span>name<span class="op">,</span> building<span class="op">-&gt;</span>value<span class="op">);</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    class="sourceCode c"><code class="sourceCode c"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> item <span class="op">{</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> value<span class="op">;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>name<span class="op">;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+    <p>Structure fields can be accessed using the operator:
+    <code>.</code> (dot) when locally allocated and the operator:
+    <code>-&gt;</code> (arrow) when handling structure pointers.</p>
+    <blockquote>
+    <p>Using different operators to access structure fields helps make
+    the developer’s intention clear. While the compiler can already
+    distinguish whether a variable is a pointer or not, explicitly
+    choosing the appropriate operator improves code readability.</p>
+    </blockquote>
+    <p>Fields can be read and wrote using the same operators, structure
+    can greatly improve code readability and simplify the software.</p>
+    <div class="sourceCode" id="cb30"><pre
+    class="sourceCode c"><code class="sourceCode c"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> item <span class="op">{</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> value<span class="op">;</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>name<span class="op">;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> item <span class="op">*</span>building <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> item<span class="op">));</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Alternative ways of instantiating structures in C</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// struct item building = {.value = 10000, .name = &quot;House&quot;};</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// struct item building = {10000, &quot;House&quot;};</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    building<span class="op">-&gt;</span>name <span class="op">=</span> <span class="st">&quot;House&quot;</span><span class="op">;</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    building<span class="op">-&gt;</span>value <span class="op">=</span> <span class="dv">10000</span><span class="op">;</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;Building: </span><span class="sc">%s</span><span class="st"> has the value of: </span><span class="sc">%d</span><span class="st">&quot;</span><span class="op">,</span> building<span class="op">-&gt;</span>name<span class="op">,</span> building<span class="op">-&gt;</span>value<span class="op">);</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>building<span class="op">);</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+    <h2 id="memory-management">Memory management</h2>
+    <p>Structures, by default, guarantee that each member is stored in a
+    memory address multiple of its size. This means that field order has
+    an impact on memory usage. For example, a structure having three
+    fields: <code>int, char, int</code> will make use of 12 bytes by
+    adding a 3-bytes padding after the char.</p>
+    <p>It is not common but it is also possible to instantiate
+    structures in functions and return them as values. This approach
+    does not require usage of <code>malloc</code> and <code>free</code>
+    but with heavy structures it can easily decrease the performances of
+    the software since all the bytes need to be copied.</p>
   </main>
 </body>
 </html>

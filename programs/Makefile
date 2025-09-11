@@ -4,3 +4,5 @@
 	cc prefixed-string.c -o2 -Wall -o prefixed-string.out
 3:
 	cc binary-tree.c -o2 -Wall -o binary-tree.out
+4:
+	cc tac.c -o2 -Wall -o tac.out

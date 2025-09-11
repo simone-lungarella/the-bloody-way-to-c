@@ -670,7 +670,10 @@ int main(void) {
 }
 ```
 
+To see an example of structure usage check out [Tac](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/tac.c).
+
 ## Memory management
 Structures, by default, guarantee that each member is stored in a memory address multiple of its size. This means that field order has an impact on memory usage. For example, a structure having three fields: `int, char, int` will make use of 12 bytes by adding a 3-bytes padding after the char.
 
 It is not common but it is also possible to instantiate structures in functions and return them as values. This approach does not require usage of `malloc` and `free` but with heavy structures it can easily decrease the performances of the software since all the bytes need to be copied.
+

@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* This structure has a pointer to a structure of the same type, this is a typical
+ * characteristic of Linked Lists: https://en.wikipedia.org/wiki/Linked_list. */
 struct line {
   char *s;
   struct line *next;
@@ -23,8 +25,8 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  /* In this example will be ignored all errors relative to string length or malloc
-   * for the sake of simplicity. */
+  /* In this example all errors relative to string length or `malloc` usage 
+   * will be ignored for the sake of simplicity. */
   char buf[1024];
   struct line *head = NULL;
 

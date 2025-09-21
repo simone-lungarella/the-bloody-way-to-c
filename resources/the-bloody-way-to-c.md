@@ -677,3 +677,39 @@ Structures, by default, guarantee that each member is stored in a memory address
 
 It is not common but it is also possible to instantiate structures in functions and return them as values. This approach does not require usage of `malloc` and `free` but with heavy structures it can easily decrease the performances of the software since all the bytes need to be copied.
 
+## Structures as user defined types
+All _C_ types have a specific name and it must be defined whenever a new variable is declared. However built-in types can also have user-defined aliases. To define an alias for a type, the keyword `typedef` can be used.
+
+```c
+typedef int errorcode;
+
+int main(void) {
+    errorcode x = 20;
+    return 0;
+}
+```
+
+This is a convenient way to simplify structure usage and avoid explicitly declare a variable of a user-defined type using the keyword `struct`. This approach can be often seen when working with libraries, for example, one way to read a file is: `FILE *fp = fopen("file.txt", "r");` where `FILE` is a structure defined by the library that contains multiple useful information about the file.
+
+```c
+#include <stdio.h>
+
+typedef struct {
+    int numerator;
+    int denominator;
+} fract;
+
+// `typedef` can also be used on user-defined types
+typedef fract *fractptr;
+
+int main(void) {
+    fract f;
+    f.numerator = 10;
+    f.denominator = 20;
+
+    printf("%d/%d", f.numerator, f.denominator);
+    return 0;
+}
+```
+
+> Note that when using `typedef` with structures, the defined name follows the structure itself and not the `struct` keyword.

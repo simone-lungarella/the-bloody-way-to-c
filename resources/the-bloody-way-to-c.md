@@ -602,9 +602,7 @@ Pointers are variables, and as such, they are stored in some address in memory. 
 
 > For a comprehensive program that make use of all concepts introduced, check out [Conway's Game of Life](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/life-game.c).
 
-\newpage
-
-# Working with memory
+## Working with memory
 In _C_, memory is handled manually by the developers. This is a very powerful feature of the language but make it very easily error-prone.
 
 We use `malloc()` to allocate part of the memory and `free()` to release it.
@@ -638,11 +636,7 @@ struct item {
 };
 ```
 
-Structure fields can be accessed using the operator: `.` (dot) when locally allocated and the operator: `->` (arrow) when handling structure pointers.
-
-> Using different operators to access structure fields helps make the developer's intention clear. While the compiler can already distinguish whether a variable is a pointer or not, explicitly choosing the appropriate operator improves code readability.
-
-Fields can be read and wrote using the same operators, structure can greatly improve code readability and simplify the software.
+Structure fields can be accessed using the operator: `.` (dot) when locally allocated and the operator: `->` (arrow) when handling structure pointers. Fields can be read and wrote using the same operators, structure can greatly improve code readability and simplify the software.
 
 ```c
 #include <stdio.h>
@@ -671,6 +665,10 @@ int main(void) {
 ```
 
 Structures can be defined as part of the same or other structures. To see an example of structure usage, check out [Tac](https://github.com/simone-lungarella/the-bloody-way-to-c/blob/master/programs/tac.c).
+
+> Using different operators to access structure fields helps make the developer's intention clear. While the compiler can already distinguish whether a variable is a pointer or not, explicitly choosing the appropriate operator improves code readability.
+
+\newpage
 
 ## Memory management
 Structures, by default, guarantee that each member is stored in a memory address multiple of its size. This means that field order has an impact on memory usage. For example, a structure having three fields: `int, char, int` will make use of 12 bytes by adding a 3-bytes padding after the char.
@@ -713,3 +711,28 @@ int main(void) {
 ```
 
 > Note that when using `typedef` with structures, the defined name follows the structure itself and not the `struct` keyword.
+
+\newpage
+
+# System calls
+Most Unix-like systems implement similar system calls, but [POSIX](https://en.wikipedia.org/wiki/POSIX) standardizes the higher-level APIs rather than the system calls themselves. Many of these systems are largely POSIX compliant, which makes _C_ programs portable across multiple platforms.
+
+Programs can rely on system calls but often the complexity is abstracted behind a library. For example, to read a file you can use `fopen` from the `stdio.h` or `open` from `fcntl.h` which is part of the POSIX API.
+
+```c
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+
+int main(void) {
+    int fd = open("file.txt", O_RDONLY);
+    if (fd == -1) {
+        perror("Unable to open file");
+        return 1;
+    }
+    close(fd);
+    return 0;
+}
+```
+
+> To learn about the interface of system calls you can check the second section of man pages.

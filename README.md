@@ -21,7 +21,7 @@ The whole document is written to be converted in [PDF](https://it.wikipedia.org/
 
 I generally don't accept contribution for this project as it is a learning project for me—but if you want to build the document from scratch you would need `pandoc` and the LaTeX engine: `XeTeX`.
 
-You can make use of `make` to run commands as I currently do:
+You can use `make` to run commands and generate `PDF` and `HTML` docs.
 
 ```c
 // Attribution

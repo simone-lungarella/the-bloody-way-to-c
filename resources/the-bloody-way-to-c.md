@@ -736,3 +736,7 @@ int main(void) {
 ```
 
 > To learn about the interface of system calls you can check the second section of man pages.
+
+The abstraction layer of a library simplifies the use of system calls; however, its design typically optimizes for common interaction patterns. When more specialized behavior is needed, writing custom functions that invoke system calls directly is often more performant. For instance, functions like `printf` use internal buffers to improve efficiency, but this also means developers lose fine-grained control over when data is actually written to the system.
+
+System calls are the primary mechanism by which processes communicate with the kernel. However, since processes can also manipulate memory, there is another way to interact with the kernel: memory mapping. Using `mmap`, a process can map a file or device into its address space and access its contents directly through a pointer. In such cases, the process can reduce the number of system calls and access the file more efficiently.

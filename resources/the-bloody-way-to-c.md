@@ -712,6 +712,31 @@ int main(void) {
 
 > Note that when using `typedef` with structures, the defined name follows the structure itself and not the `struct` keyword.
 
+## Unions
+Structures can be defined with multiple fields starting at the same offset. Unions are specific sections of structures where multiple fields are defined and share the same memory. This can be useful, for example, when multiple values are mutually exclusive; check [Redis expr.c](https://github.com/redis/redis/blob/unstable/modules/vector-sets/expr.c) for a better use-case example.
+
+```c
+struct foo {
+    union {
+        int i;
+        unsigned char a[4];
+    };
+};
+```
+
+If multiple unions are present, it is convenient to assign a name to each specific union.
+
+## Bit fields
+It is possible, in _C_, to define structure fields with a specific bit size. Assigning greater values in such fields provoke a wrapping around if they are defined as `unsigned`, otherwise the behaviour is *undefined*.
+
+```c
+struct foo {
+    unsigned char a: 4;
+    unsigned char b: 4;
+    unsigned char c: 8;
+};
+```
+
 \newpage
 
 # System calls

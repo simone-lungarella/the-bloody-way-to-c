@@ -626,6 +626,32 @@ For a better use case, you can check [Prefixed Strings](https://github.com/simon
 
 \newpage
 
+## Function pointers
+As variables can be referenced by pointers, so are functions. In fact, functions occupy space in memory likewise variables. 
+
+A function pointer is declared by writing the function’s return type, followed by (`*pointer_name`) and the parameter list, for example: `int (*fptr)(void);`.
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    int (*fptr)(void);
+    fptr = main;
+
+    printf("%p\n", fptr);
+
+    // The following instruction effectively calls the main method
+    fptr();
+    return 0;
+}
+```
+
+> In this example, calling `main()` recursively (via the function pointer) will eventually cause a stack overflow, leading to a segmentation fault.
+
+Function pointers are used, for example, by many sorting functions. The `qsort()` function, for instance, requires a pointer to a _comparator function_ that abstracts the comparison logic, making it possible to use the same sorting implementation with user-defined comparison functions. This allows the sorting algorithm to be applied to any type of data structure.
+
+\newpage
+
 # Structures
 When working on complex scenarios, built-in _C_ types are often not enough. In _C_, it is possible to define structures having specific fields using the keyword `struct`.
 
@@ -727,7 +753,7 @@ struct foo {
 If multiple unions are present, it is convenient to assign a name to each specific union.
 
 ## Bit fields
-It is possible, in _C_, to define structure fields with a specific bit size. Assigning greater values in such fields provoke a wrapping around if they are defined as `unsigned`, otherwise the behaviour is *undefined*.
+It is possible, in _C_, to define structure fields with a specific bit size. Assigning greater values in such fields provoke a wrapping around if they are defined as `unsigned`, otherwise the behaviour is **undefined**.
 
 ```c
 struct foo {
